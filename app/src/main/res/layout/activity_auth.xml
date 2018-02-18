@@ -4,6 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAuth"
+    android:theme="@style/AuthTheme"
     tools:context="com.exsample.maria.mobi2.AuthActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/sova"
+        android:src="@drawable/img"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="3dp"
+        android:scrollbarTrackVertical="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/auth_l_margin"
+            android:layout_marginRight="@dimen/auth_l_margin"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/enter_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/auth_margin"
+                android:layout_marginRight="@dimen/auth_margin"
+                android:layout_marginTop="@dimen/auth_margin_top"
+                android:fontFamily="sans-serif"
+                android:inputType="textEmailAddress"
+                android:labelFor="@id/enter_email"
+                android:lineSpacingExtra="@dimen/auth_text_size"
+                android:text="@string/auth_ed_email"
+                android:textColor="@color/auth_text_color"
+                android:textSize="@dimen/auth_text_size"
+                android:textStyle="normal"
+                tools:layout_marginTop="@dimen/auth_margin_top_t" />
+
+            <EditText
+                android:id="@+id/enter_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/auth_margin"
+                android:layout_marginRight="@dimen/auth_margin"
+                android:layout_marginTop="@dimen/auth_margin_top"
+                android:fontFamily="sans-serif"
+                android:inputType="textPassword"
+                android:labelFor="@id/enter_pass"
+                android:lineSpacingExtra="@dimen/auth_text_size"
+                android:text="@string/auth_ed_pass"
+                android:textColor="@color/auth_text_color"
+                android:textSize="@dimen/auth_text_size"
+                android:textStyle="normal"
+                tools:layout_marginTop="@dimen/auth_margin_top_t" />
+
+            <Button
+                android:id="@+id/regBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/auth_reg_h"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/auth_margin"
+                android:layout_marginTop="@dimen/auth_margin_top"
+                android:background="@color/colorWhite"
+                android:text="@string/auth_btn_reg"
+                android:textColor="@color/auth_text_color"
+                android:textSize="@dimen/auth_reg_text_size"
+                android:enabled="false"
+                tools:layout_marginTop="@dimen/auth_margin_top_t" />
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="@dimen/auth_btn_login_w"
+                android:layout_height="@dimen/auth_btn_login_h"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/auth_margin_end_bottom"
+                android:layout_marginLeft="@dimen/auth_margin"
+                android:layout_marginRight="@dimen/auth_margin"
+                android:layout_marginTop="@dimen/auth_login_margin_top"
+                android:background="@color/colorLoginBtn"
+                android:text="@string/auth_btn_text_not_fill"
+                android:enabled="false"
+                tools:layout_marginBottom="@dimen/auth_margin_end_bottom" />
+
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

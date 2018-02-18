@@ -17,12 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 123;
+    private static final int AUTH_ACTIVITY = 11;
 
     TextView helloView;
     Button signInBtn, signOutBtn;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        signIn();
+        sayHi();
     }
 
     private void initViews() {
@@ -60,12 +58,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
-        startActivityForResult(AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN);
+        signOut();
+        startActivityForResult(AuthActivity.start(MainActivity.this), AUTH_ACTIVITY);
     }
 
     private void signOut() {
@@ -73,39 +67,42 @@ public class MainActivity extends AppCompatActivity {
                 .signOut(MainActivity.this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
-                        // ...
+                        if (task.isSuccessful()) {
+                            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                                helloView.setText(R.string.hello_world);
+                                Toast.makeText(MainActivity.this, R.string.signed_out, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        // ...
-
-        if (user == null) {
-            helloView.setText(R.string.helloWorld);
-            Toast.makeText(MainActivity.this, "You sign out", Toast.LENGTH_SHORT).show();
-        }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == AUTH_ACTIVITY) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                // ...
-
-                if (user != null) {
-                    helloView.setText("Hello, " + user.toString());
-                    Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show();
-                }
+                sayHi();
             } else {
-                // Sign in failed, check response for error code
-                // ...
+                if (response != null) {
+                    Toast.makeText(this, response.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
+        }
+    }
+
+    private void sayHi() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            helloView.setText(String.format(getString(R.string.hello_user), user.getEmail()));
+            Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT).show();
         }
     }
 }

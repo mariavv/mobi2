@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AuthTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorAuth</item>
+        <item name="windowActionBar">@color/colorAuth</item>
+    </style>
+
 </resources>

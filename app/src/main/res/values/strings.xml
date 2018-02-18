@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">mobi2</string>
-    <string name="helloWorld">Hello World!</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="signed_out">You sign out</string>
+    <string name="hello_user">Hello, %s</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="sign_in">Sign In</string>
+    <string name="auth_activity_name">Авторизация</string>
+    <string name="sova">sova</string>
+    <string name="auth_btn_text_not_fill">Не все поля заполнены</string>
+    <string name="auth_btn_text_login">Войти</string>
+    <string name="auth_ed_email"></string>
+    <string name="auth_ed_pass"></string>
+    <string name="auth_btn_reg">Регистрация</string>
 </resources>
