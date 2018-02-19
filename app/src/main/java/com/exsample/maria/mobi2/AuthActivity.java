@@ -2,15 +2,20 @@ package com.exsample.maria.mobi2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class AuthActivity extends AppCompatActivity {
 
     ScrollView scrollView;
+    LinearLayout scrolling_layout;
     EditText emailEd;
     EditText passEd;
     Button regBtn;
@@ -40,6 +46,7 @@ public class AuthActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         scrollView = findViewById(R.id.scrollView);
+        scrolling_layout = findViewById(R.id.scrolling_layout);
         emailEd = findViewById(R.id.enter_email);
         passEd = findViewById(R.id.enter_pass);
         regBtn = findViewById(R.id.regBtn);
@@ -47,6 +54,20 @@ public class AuthActivity extends AppCompatActivity {
 
         //TODO del
         checkBtnEnabled();
+
+        //TODO это будет для скролла
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int height = size.y;
+//        FrameLayout.LayoutParams lParams1 = (FrameLayout.LayoutParams) scrolling_layout.getLayoutParams();
+//        lParams1.topMargin = 2;
+//        lParams1.setMargins(1,2,1,1);
+//        scrolling_layout.requestLayout();
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) regBtn.getLayoutParams();
+//        params.topMargin = height / 2;
+//        regBtn.requestLayout();
+
 
         emailEd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,7 +102,6 @@ public class AuthActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         regBtn.setOnClickListener(new View.OnClickListener() {
