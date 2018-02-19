@@ -48,14 +48,6 @@ public class AuthActivity extends AppCompatActivity {
         //TODO del
         checkBtnEnabled();
 
-        emailEd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //scrollView.scrollTo(0,0);
-
-            }
-        });
-
         emailEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

@@ -9,8 +9,6 @@
     <string name="sova">sova</string>
     <string name="auth_btn_text_not_fill">Не все поля заполнены</string>
     <string name="auth_btn_text_login">Войти</string>
-    <string name="auth_ed_email"></string>
-    <string name="auth_ed_pass"></string>
     <string name="auth_btn_reg">Регистрация</string>
     <string name="auth_ed_email_hint">Email</string>
     <string name="auth_ed_pass_hint">Пароль</string>

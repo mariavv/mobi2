@@ -19,17 +19,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:scrollbarSize="4dp"
-        android:scrollbarTrackVertical="@color/colorWhite">
+        android:scrollbarSize="@dimen/auth_csroll_bar_size"
+        android:scrollbarTrackVertical="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/auth_l_margin"
             android:layout_marginRight="@dimen/auth_l_margin"
             android:background="@color/colorWhite"
@@ -41,22 +41,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/auth_margin_top">
 
-            <EditText
-                android:id="@+id/enter_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/auth_margin"
-                android:layout_marginRight="@dimen/auth_margin"
-                android:fontFamily="sans-serif"
-                android:inputType="textEmailAddress"
-                android:labelFor="@id/enter_email"
-                android:lineSpacingExtra="@dimen/auth_text_size"
-                android:hint="@string/auth_ed_email_hint"
-                android:text="@string/auth_ed_email"
-                android:textColor="@color/auth_text_color"
-                android:textSize="@dimen/auth_text_size"
-                android:textStyle="normal"
-                tools:layout_marginTop="@dimen/auth_margin_top" />
+                <EditText
+                    android:id="@+id/enter_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auth_margin"
+                    android:layout_marginRight="@dimen/auth_margin"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/auth_ed_email_hint"
+                    android:inputType="textEmailAddress"
+                    android:labelFor="@id/enter_email"
+                    android:lineSpacingExtra="@dimen/auth_text_size"
+                    android:textColor="@color/auth_text_color"
+                    android:textSize="@dimen/auth_text_size"
+                    android:textStyle="normal"
+                    tools:layout_marginTop="@dimen/auth_margin_top" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -66,21 +65,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/auth_margin_top">
 
-            <EditText
-                android:id="@+id/enter_pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/auth_margin"
-                android:layout_marginRight="@dimen/auth_margin"
-                android:fontFamily="sans-serif"
-                android:inputType="textPassword"
-                android:labelFor="@id/enter_pass"
-                android:lineSpacingExtra="@dimen/auth_text_size"
-                android:hint="@string/auth_ed_pass_hint"
-                android:text="@string/auth_ed_pass"
-                android:textColor="@color/auth_text_color"
-                android:textSize="@dimen/auth_text_size"
-                android:textStyle="normal" />
+                <EditText
+                    android:id="@+id/enter_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auth_margin"
+                    android:layout_marginRight="@dimen/auth_margin"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/auth_ed_pass_hint"
+                    android:inputType="textPassword"
+                    android:labelFor="@id/enter_pass"
+                    android:lineSpacingExtra="@dimen/auth_text_size"
+                    android:textColor="@color/auth_text_color"
+                    android:textSize="@dimen/auth_text_size"
+                    android:textStyle="normal" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -92,10 +90,10 @@
                 android:layout_marginStart="@dimen/auth_margin"
                 android:layout_marginTop="@dimen/auth_margin_top"
                 android:background="@color/colorWhite"
+                android:enabled="false"
                 android:text="@string/auth_btn_reg"
                 android:textColor="@color/auth_text_color"
-                android:textSize="@dimen/auth_reg_text_size"
-                android:enabled="false" />
+                android:textSize="@dimen/auth_reg_text_size" />
 
             <Button
                 android:id="@+id/loginBtn"
@@ -107,9 +105,9 @@
                 android:layout_marginRight="@dimen/auth_margin"
                 android:layout_marginTop="@dimen/auth_login_margin_top"
                 android:background="@color/colorLoginBtn"
+                android:enabled="false"
                 android:text="@string/auth_btn_text_not_fill"
                 android:textColor="@color/colorWhite"
-                android:enabled="false"
                 tools:layout_marginBottom="@dimen/auth_margin_end_bottom" />
 
         </LinearLayout>
