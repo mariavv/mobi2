@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AuthActivity extends AppCompatActivity {
 
+    ScrollView scrollView;
     EditText emailEd;
     EditText passEd;
     Button regBtn;
@@ -37,6 +39,7 @@ public class AuthActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        scrollView = findViewById(R.id.scrollView);
         emailEd = findViewById(R.id.enter_email);
         passEd = findViewById(R.id.enter_pass);
         regBtn = findViewById(R.id.regBtn);
@@ -44,6 +47,14 @@ public class AuthActivity extends AppCompatActivity {
 
         //TODO del
         checkBtnEnabled();
+
+        emailEd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //scrollView.scrollTo(0,0);
+
+            }
+        });
 
         emailEd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,6 +89,8 @@ public class AuthActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
