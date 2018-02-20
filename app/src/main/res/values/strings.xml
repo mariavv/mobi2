@@ -12,4 +12,8 @@
     <string name="auth_btn_reg">Регистрация</string>
     <string name="auth_ed_email_hint">Email</string>
     <string name="auth_ed_pass_hint">Пароль</string>
+    <string name="auth_fill_screen">fill_screen</string>
+    <string name="status_bar_height">status_bar_height</string>
+    <string name="dimen">dimen</string>
+    <string name="android">android</string>
 </resources>
