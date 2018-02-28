@@ -23,14 +23,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbarSize="@dimen/auth_csroll_bar_size"
+        android:scrollbarSize="@dimen/auth_scrollBar_size"
         android:scrollbarTrackVertical="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGlassy"
+            android:background="@color/colorAuthGlassy"
             android:orientation="vertical">
 
             <ImageView
@@ -105,18 +105,18 @@
                     android:enabled="false"
                     android:text="@string/auth_btn_reg"
                     android:textColor="@color/colorAuthText"
-                    android:textSize="@dimen/auth_reg_text_size" />
+                    android:textSize="@dimen/auth_regText_size" />
 
                 <Button
                     android:id="@+id/loginBtn"
-                    android:layout_width="@dimen/auth_btn_login_w"
-                    android:layout_height="@dimen/auth_btn_login_h"
+                    android:layout_width="@dimen/auth_btnLogin_w"
+                    android:layout_height="@dimen/auth_btnLogin_h"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="@dimen/auth_margin_end_bottom"
                     android:layout_marginLeft="@dimen/auth_margin"
                     android:layout_marginRight="@dimen/auth_margin"
                     android:layout_marginTop="@dimen/auth_login_margin_top"
-                    android:background="@color/colorLoginBtn"
+                    android:background="@color/colorAuthLoginBtn"
                     android:enabled="false"
                     android:text="@string/auth_btn_text_not_fill"
                     android:textColor="@android:color/white"

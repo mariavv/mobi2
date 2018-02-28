@@ -16,4 +16,8 @@
     <string name="status_bar_height">status_bar_height</string>
     <string name="dimen">dimen</string>
     <string name="android">android</string>
+    <string name="profile_photo">photo</string>
+    <string name="profile_headText">Михаил Дерябин</string>
+    <string name="profile_BtnSave_text">Сохранить</string>
+    <string name="profileBtn_text">Профиль</string>
 </resources>

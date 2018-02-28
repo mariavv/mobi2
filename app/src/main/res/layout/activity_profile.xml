@@ -1,9 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.exsample.maria.mobi2.ui.ProfileActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_photo_h"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/profile_img_2"
+            android:contentDescription="@string/profile_photo"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_headText"
+            android:textSize="@dimen/profile_headText_size"
+            android:textColor="@color/colorProfileHeadText"
+            android:letterSpacing="@dimen/profile_headText_letterSpacing"
+            android:lineSpacingExtra="@dimen/profile_headText_lineSpacingExtra"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <!--в разработке-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#a0a0a0"
+            android:lineSpacingExtra="4sp"
+            android:gravity="center_horizontal"
+            tools:text="Сменить фотографию"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="2sp"
+            tools:text="Личные данные"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="4sp"
+            tools:text="Имя"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#4c4c4c"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="4sp"
+            tools:text="Михаил Дерябин"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="4sp"
+            tools:text="Телефон"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#4c4c4c"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="4sp"
+            tools:text="+7 917 678 9000"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="4sp"
+            tools:text="Email"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#4c4c4c"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="4sp"
+            tools:text="derybin@gmail.com"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="10sp"
+            tools:text="Сменить пароль"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="16sp"
+            tools:text="Старый пароль"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="16sp"
+            tools:text="Новый пароль "
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#4c4c4c"
+            android:lineSpacingExtra="16sp"
+            tools:text="Повторить "
+            />
+
+        <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#4c4c4c"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="8sp"
+            android:gravity="center_horizontal"
+            android:text="@string/profile_BtnSave_text"
+            />
+
+
+
+    </LinearLayout>
+</ScrollView>
+

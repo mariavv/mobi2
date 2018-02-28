@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.ui.AuthActivity;
 import com.exsample.maria.mobi2.ui.MainActivity;
+import com.exsample.maria.mobi2.ui.ProfileActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -80,5 +81,9 @@ public class MainPresenter {
 
     public void onCreateActivity() {
         changeText();
+    }
+
+    public void profileBtnPressed() {
+        activity.startActivity(ProfileActivity.start(activity));
     }
 }

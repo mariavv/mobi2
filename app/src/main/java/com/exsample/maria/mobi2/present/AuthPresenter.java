@@ -57,7 +57,7 @@ public class AuthPresenter {
     }
 
 
-    public static String getError(Task<AuthResult> task) {
+    private static String getError(Task<AuthResult> task) {
         return task.getException().getMessage();
     }
 
@@ -68,10 +68,10 @@ public class AuthPresenter {
     public void textChanged(int emailLen, int loginLen) {
         if (isAuthParamsCorrect(emailLen, loginLen)) {
             activity.setUpLoginBtn(R.string.auth_btn_text_login,
-                    activity.getResources().getColor(R.color.colorLoginBtnGreen), true);
+                    activity.getResources().getColor(R.color.colorAuthLoginBtnGreen), true);
         } else {
             activity.setUpLoginBtn(R.string.auth_btn_text_not_fill,
-                    activity.getResources().getColor(R.color.colorLoginBtn), false);
+                    activity.getResources().getColor(R.color.colorAuthLoginBtn), false);
         }
     }
 

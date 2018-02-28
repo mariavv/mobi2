@@ -4,14 +4,18 @@
     <dimen name="auth_margin">24dp</dimen>
     <dimen name="auth_margin_end_bottom">32dp</dimen>
     <dimen name="auth_l_margin">24dp</dimen>
-    <dimen name="auth_btn_login_w">264dp</dimen>
-    <dimen name="auth_btn_login_h">48dp</dimen>
+    <dimen name="auth_btnLogin_w">264dp</dimen>
+    <dimen name="auth_btnLogin_h">48dp</dimen>
     <dimen name="auth_margin_top">40dp</dimen>
     <dimen name="auth_margin_top_top">20dp</dimen>
-    <dimen name="auth_reg_text_size">12sp</dimen>
+    <dimen name="auth_regText_size">12sp</dimen>
     <dimen name="auth_reg_h">24dp</dimen>
-    <dimen name="main_hi_text_size">18sp</dimen>
+    <dimen name="main_hiText_size">18sp</dimen>
     <dimen name="auth_login_margin_top">25dp</dimen>
-    <dimen name="auth_csroll_bar_size">4dp</dimen>
+    <dimen name="auth_scrollBar_size">4dp</dimen>
     <dimen name="auth_scroll_top">200dp</dimen>
+    <dimen name="profile_photo_h">100dp</dimen>
+    <dimen name="profile_headText_size">24sp</dimen>
+    <dimen name="profile_headText_lineSpacingExtra">0sp</dimen>
+    <item name="profile_headText_letterSpacing" type="dimen" format="float">0.01</item>
 </resources>

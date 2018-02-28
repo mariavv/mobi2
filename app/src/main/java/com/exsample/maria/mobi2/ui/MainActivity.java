@@ -15,7 +15,7 @@ import com.exsample.maria.mobi2.present.MainPresenter;
 public class MainActivity extends AppCompatActivity {
 
     TextView helloView;
-    Button signInBtn, signOutBtn;
+    Button signInBtn, signOutBtn, profileBtn;
 
     private MainPresenter presenter;
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         helloView = findViewById(R.id.helloView);
         signOutBtn = findViewById(R.id.signOutBtn);
         signInBtn = findViewById(R.id.signInBtn);
+        profileBtn = findViewById(R.id.profileBtn);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -44,12 +45,16 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.signOutBtn:
                         presenter.signOutBtnPressed();
                         break;
+                    case R.id.profileBtn:
+                        presenter.profileBtnPressed();
+                        break;
                 }
             }
         };
 
         signInBtn.setOnClickListener(onClickListener);
         signOutBtn.setOnClickListener(onClickListener);
+        profileBtn.setOnClickListener(onClickListener);
     }
 
     @Override

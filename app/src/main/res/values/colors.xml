@@ -4,10 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorAuth">#252423</color>
-    <color name="coloWhite">#252423</color>
     <color name="colorAuthText">#4c4c4c</color>
-    <color name="colorFon">#eddede</color>
-    <color name="colorLoginBtnGreen">#7bcb57</color>
-    <color name="colorLoginBtn">#4c4c4c</color>
-    <color name="colorGlassy">#00ffffff</color>
+    <color name="colorMainFon">#eddede</color>
+    <color name="colorAuthLoginBtnGreen">#7bcb57</color>
+    <color name="colorAuthLoginBtn">#4c4c4c</color>
+    <color name="colorAuthGlassy">#00ffffff</color>
+    <color name="colorProfileHeadText">#4c4c4c</color>
 </resources>
