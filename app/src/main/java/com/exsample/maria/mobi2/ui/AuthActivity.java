@@ -1,9 +1,8 @@
-package com.exsample.maria.mobi2;
+package com.exsample.maria.mobi2.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,10 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.exsample.maria.mobi2.R;
+import com.exsample.maria.mobi2.present.AuthPresenter;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -29,6 +26,8 @@ public class AuthActivity extends AppCompatActivity {
     EditText passEd;
     Button regBtn;
     Button loginBtn;
+
+    AuthPresenter presenter;
 
     public static Intent start(Context context) {
         return new Intent(context, AuthActivity.class);
@@ -42,11 +41,10 @@ public class AuthActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //TODO del
-        //checkBtnEnabled();
-
         configViews();
         fillScroll(); // позволяет растянуть scrollView на высоту экрана
+
+        presenter = new AuthPresenter(AuthActivity.this);
     }
 
     private void configViews() {
@@ -63,7 +61,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkBtnEnabled();
+                presenter.textChanged(edGetTextLength(emailEd), edGetTextLength(passEd));
             }
 
             @Override
@@ -80,7 +78,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkBtnEnabled();
+                presenter.textChanged(edGetTextLength(emailEd), edGetTextLength(passEd));
             }
 
             @Override
@@ -92,46 +90,24 @@ public class AuthActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailEd.getText().toString(),
-                        passEd.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseAuth.getInstance().signInWithEmailAndPassword(emailEd.getText().toString(),
-                                    passEd.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        success();
-                                    } else {
-                                        showError(task.getException().getMessage());
-                                    }
-                                }
-                            });
-                        } else {
-                            showError(task.getException().getMessage());
-                        }
-                    }
-                });
+                presenter.regBtnPressed(edGetText(emailEd), edGetText(passEd));
             }
         });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(emailEd.getText().toString(),
-                        passEd.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            success();
-                        } else {
-                            showError(task.getException().getMessage());
-                        }
-                    }
-                });
+                presenter.loginBtnPressed(edGetText(emailEd), edGetText(passEd));
             }
         });
+    }
+
+    private String edGetText(EditText ed) {
+        return ed.getText().toString();
+    }
+
+    private int edGetTextLength(EditText ed) {
+        return ed.getText().length();
     }
 
     // Растягивает view на весь экран
@@ -163,36 +139,28 @@ public class AuthActivity extends AppCompatActivity {
         scrolling_layout.requestLayout();
     }
 
-    private void success() {
-        setResult(RESULT_OK, new Intent());
-        finish();
-    }
-
-    private void checkBtnEnabled() {
-        if (emailEd.getText().length() > 0 && passEd.getText().length() > 0) {
-            loginBtn.setText(R.string.auth_btn_text_login);
-            loginBtn.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-            loginBtn.setEnabled(true);
-            regBtn.setEnabled(true);
-        } else if (emailEd.getText().length() == 0 || passEd.getText().length() == 0) {
-            loginBtn.setText(R.string.auth_btn_text_not_fill);
-            loginBtn.setBackgroundColor(getResources().getColor(R.color.colorLoginBtn));
-            loginBtn.setEnabled(false);
-            regBtn.setEnabled(false);
-        }
-    }
-
-    private void showError(String message) {
-        Toast.makeText(AuthActivity.this, message, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // как называется эта кнопка?
         if (item.getItemId() == 16908332) {
-            setResult(RESULT_CANCELED, new Intent());
-            finish();
+            presenter.backBtnPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setUpLoginBtn(int text, int color, boolean enabled) {
+        loginBtn.setText(text);
+        loginBtn.setBackgroundColor(color);
+        loginBtn.setEnabled(enabled);
+        regBtn.setEnabled(enabled);
+    }
+
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void close(int result) {
+        setResult(result, new Intent());
+        finish();
     }
 }
