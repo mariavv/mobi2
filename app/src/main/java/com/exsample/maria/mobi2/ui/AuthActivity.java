@@ -33,13 +33,14 @@ public class AuthActivity extends AppCompatActivity {
         return new Intent(context, AuthActivity.class);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if ( getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         configViews();

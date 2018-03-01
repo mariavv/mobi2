@@ -46,14 +46,15 @@ public class MainPresenter {
             AuthUI.getInstance()
                     .signOut(activity)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @SuppressWarnings("ConstantConditions")
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                                     activity.sayHi(R.string.hello_world);
                                 }
                             } else {
+                                if (task.getException() != null) {
                                     activity.showError(task.getException().getMessage());
+                                }
                             }
                         }
                     });
@@ -66,7 +67,6 @@ public class MainPresenter {
     }
 
     @SuppressLint("RestrictedApi")
-    @SuppressWarnings("ConstantConditions")
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == AUTH_ACTIVITY) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
@@ -75,7 +75,9 @@ public class MainPresenter {
                 changeText();
             } else {
                 if (response != null) {
-                    activity.showError(response.getException().getMessage());
+                    if (response.getException() != null) {
+                        activity.showError(response.getException().getMessage());
+                    }
                 }
             }
         }

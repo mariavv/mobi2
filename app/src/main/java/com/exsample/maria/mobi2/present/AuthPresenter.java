@@ -34,10 +34,16 @@ public class AuthPresenter {
                         if (task.isSuccessful()) {
                             login(email, pass);
                         } else {
-                            activity.showError(getError(task));
+                            showError(task);
                         }
                     }
                 });
+    }
+
+    private void showError(Task<AuthResult> task) {
+        if (task.getException() != null) {
+            activity.showError(task.getException().getMessage());
+        }
     }
 
     private void login(String email, String pass) {
@@ -50,15 +56,10 @@ public class AuthPresenter {
                         if (task.isSuccessful()) {
                             activity.close(Activity.RESULT_OK);
                         } else {
-                            activity.showError(getError(task));
+                            showError(task);
                         }
                     }
                 });
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private static String getError(Task<AuthResult> task) {
-        return task.getException().getMessage();
     }
 
     public void loginBtnPressed(String email, String pass) {
