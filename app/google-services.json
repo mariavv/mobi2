@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "151348492902",
+    "firebase_url": "https://gmaps-mob.firebaseio.com",
+    "project_id": "gmaps-mob",
+    "storage_bucket": "gmaps-mob.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151348492902:android:58e1aa6ca08d7975",
+        "android_client_info": {
+          "package_name": "com.exsample.maria.mobi2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151348492902-0qllv0u151grqnrqg3vlnenhqbqqucs9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSpBYd48D5dMVEkqlIYLiL6gbFmgd3pAU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
