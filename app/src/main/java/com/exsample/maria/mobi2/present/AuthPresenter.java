@@ -11,7 +11,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * Created by maria on 24.02.2018.
+ * Created by maria on 24.02.2018
  */
 
 public class AuthPresenter {
@@ -56,7 +56,7 @@ public class AuthPresenter {
                 });
     }
 
-
+    @SuppressWarnings("ConstantConditions")
     private static String getError(Task<AuthResult> task) {
         return task.getException().getMessage();
     }

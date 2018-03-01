@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Created by maria on 28.02.2018.
+ * Created by maria on 28.02.2018
  */
 
 public class MainPresenter {
@@ -46,13 +46,14 @@ public class MainPresenter {
             AuthUI.getInstance()
                     .signOut(activity)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @SuppressWarnings("ConstantConditions")
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                                     activity.sayHi(R.string.hello_world);
                                 }
                             } else {
-                                activity.showError(task.getException().getMessage());
+                                    activity.showError(task.getException().getMessage());
                             }
                         }
                     });
@@ -65,6 +66,7 @@ public class MainPresenter {
     }
 
     @SuppressLint("RestrictedApi")
+    @SuppressWarnings("ConstantConditions")
     public void activityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == AUTH_ACTIVITY) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
