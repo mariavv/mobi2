@@ -22,12 +22,12 @@ import com.exsample.maria.mobi2.present.AuthPresenter;
 
 public class AuthActivity extends AppCompatActivity {
 
-    EditText emailEd;
-    EditText passEd;
-    Button regBtn;
-    Button loginBtn;
+    private EditText emailEd;
+    private EditText passEd;
+    private Button regBtn;
+    private Button loginBtn;
 
-    AuthPresenter presenter;
+    private AuthPresenter presenter;
 
     public static Intent start(Context context) {
         return new Intent(context, AuthActivity.class);
@@ -46,7 +46,7 @@ public class AuthActivity extends AppCompatActivity {
         configViews();
         fillScroll(); // позволяет растянуть scrollView на высоту экрана
 
-        presenter = new AuthPresenter(AuthActivity.this);
+        presenter = new AuthPresenter();
     }
 
     private void configViews() {
@@ -63,7 +63,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                presenter.textChanged(edGetTextLength(emailEd), edGetTextLength(passEd));
+                presenter.textChanged(AuthActivity.this, edGetTextLength(emailEd), edGetTextLength(passEd));
             }
 
             @Override
@@ -80,7 +80,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                presenter.textChanged(edGetTextLength(emailEd), edGetTextLength(passEd));
+                presenter.textChanged(AuthActivity.this, edGetTextLength(emailEd), edGetTextLength(passEd));
             }
 
             @Override
@@ -92,14 +92,14 @@ public class AuthActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.regBtnPressed(edGetText(emailEd), edGetText(passEd));
+                presenter.regBtnPressed(AuthActivity.this, edGetText(emailEd), edGetText(passEd));
             }
         });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.loginBtnPressed(edGetText(emailEd), edGetText(passEd));
+                presenter.loginBtnPressed(AuthActivity.this, edGetText(emailEd), edGetText(passEd));
             }
         });
     }
@@ -145,7 +145,7 @@ public class AuthActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // как называется эта кнопка?
         if (item.getItemId() == 16908332) {
-            presenter.backBtnPressed();
+            presenter.backBtnPressed(AuthActivity.this);
         }
         return super.onOptionsItemSelected(item);
     }

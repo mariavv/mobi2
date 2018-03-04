@@ -24,24 +24,18 @@ public class MainPresenter {
 
     private static final int AUTH_ACTIVITY = 11;
 
-    private MainActivity activity;
-
-    public MainPresenter(MainActivity activity) {
-        this.activity = activity;
-    }
-
-    private void changeText() {
+    private void changeText(MainActivity activity) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             activity.sayHi(String.format(activity.getString(R.string.hello_user), user.getEmail()));
         }
     }
 
-    public void signOutBtnPressed() {
-        signOut();
+    public void signOutBtnPressed(MainActivity activity) {
+        signOut(activity);
     }
 
-    private void signOut() {
+    private void signOut(final MainActivity activity) {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             AuthUI.getInstance()
                     .signOut(activity)
@@ -61,18 +55,18 @@ public class MainPresenter {
         }
     }
 
-    public void signInBtnPressed() {
-        signOut();
+    public void signInBtnPressed(MainActivity activity) {
+        signOut(activity);
         activity.startActivityForResult(AuthActivity.start(activity), AUTH_ACTIVITY);
     }
 
     @SuppressLint("RestrictedApi")
-    public void activityResult(int requestCode, int resultCode, Intent data) {
+    public void activityResult(MainActivity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode == AUTH_ACTIVITY) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == Activity.RESULT_OK) {
-                changeText();
+                changeText(activity);
             } else {
                 if (response != null) {
                     if (response.getException() != null) {
@@ -83,11 +77,11 @@ public class MainPresenter {
         }
     }
 
-    public void onCreateActivity() {
-        changeText();
+    public void onCreateActivity(MainActivity activity) {
+        changeText(activity);
     }
 
-    public void profileBtnPressed() {
+    public void profileBtnPressed(MainActivity activity) {
         activity.startActivity(ProfileActivity.start(activity));
     }
 }

@@ -18,13 +18,7 @@ public class AuthPresenter {
 
     private static final int MIN_LENGTH = 8;
 
-    private AuthActivity activity;
-
-    public AuthPresenter(AuthActivity activity) {
-        this.activity = activity;
-    }
-
-    public void regBtnPressed(final String email, final String pass) {
+    public void regBtnPressed(final AuthActivity activity, final String email, final String pass) {
         FirebaseAuth
                 .getInstance()
                 .createUserWithEmailAndPassword(email, pass)
@@ -32,21 +26,21 @@ public class AuthPresenter {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            login(email, pass);
+                            login(activity, email, pass);
                         } else {
-                            showError(task);
+                            showError(activity, task);
                         }
                     }
                 });
     }
 
-    private void showError(Task<AuthResult> task) {
+    private void showError(AuthActivity activity, Task<AuthResult> task) {
         if (task.getException() != null) {
             activity.showError(task.getException().getMessage());
         }
     }
 
-    private void login(String email, String pass) {
+    private void login(final AuthActivity activity, String email, String pass) {
         FirebaseAuth
                 .getInstance()
                 .signInWithEmailAndPassword(email, pass)
@@ -56,17 +50,17 @@ public class AuthPresenter {
                         if (task.isSuccessful()) {
                             activity.close(Activity.RESULT_OK);
                         } else {
-                            showError(task);
+                            showError(activity, task);
                         }
                     }
                 });
     }
 
-    public void loginBtnPressed(String email, String pass) {
-        login(email, pass);
+    public void loginBtnPressed(AuthActivity activity, String email, String pass) {
+        login(activity, email, pass);
     }
 
-    public void textChanged(int emailLen, int loginLen) {
+    public void textChanged(AuthActivity activity, int emailLen, int loginLen) {
         if (isAuthParamsCorrect(emailLen, loginLen)) {
             activity.setUpLoginBtn(R.string.auth_btn_text_login,
                     activity.getResources().getColor(R.color.colorAuthLoginBtnGreen), true);
@@ -80,7 +74,7 @@ public class AuthPresenter {
         return emailLen >= MIN_LENGTH && loginLen >= MIN_LENGTH;
     }
 
-    public void backBtnPressed() {
+    public void backBtnPressed(AuthActivity activity) {
         activity.close(Activity.RESULT_CANCELED);
     }
 }

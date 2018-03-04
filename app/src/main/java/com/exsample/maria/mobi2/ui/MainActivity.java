@@ -14,8 +14,7 @@ import com.exsample.maria.mobi2.present.MainPresenter;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView helloView;
-    Button signInBtn, signOutBtn, profileBtn;
+    private TextView helloView;
 
     private MainPresenter presenter;
 
@@ -25,28 +24,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        presenter = new MainPresenter(MainActivity.this);
-        presenter.onCreateActivity();
+        presenter = new MainPresenter();
+        presenter.onCreateActivity(MainActivity.this);
     }
 
     private void initViews() {
         helloView = findViewById(R.id.helloView);
-        signOutBtn = findViewById(R.id.signOutBtn);
-        signInBtn = findViewById(R.id.signInBtn);
-        profileBtn = findViewById(R.id.profileBtn);
+        Button signOutBtn = findViewById(R.id.signOutBtn);
+        Button signInBtn = findViewById(R.id.signInBtn);
+        Button profileBtn = findViewById(R.id.profileBtn);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.signInBtn:
-                        presenter.signInBtnPressed();
+                        presenter.signInBtnPressed(MainActivity.this);
                         break;
                     case R.id.signOutBtn:
-                        presenter.signOutBtnPressed();
+                        presenter.signOutBtnPressed(MainActivity.this);
                         break;
                     case R.id.profileBtn:
-                        presenter.profileBtnPressed();
+                        presenter.profileBtnPressed(MainActivity.this);
                         break;
                 }
             }
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        presenter.activityResult(requestCode, resultCode, data);
+        presenter.activityResult(MainActivity.this, requestCode, resultCode, data);
     }
 
     public void sayHi(String greeting) {

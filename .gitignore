@@ -10,6 +10,14 @@
 
 
 
+.idea
+.java
+.release
+.androidTest
+.test
+*.stackdump
+
+
 
 # Built application files
 *.apk

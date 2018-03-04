@@ -10,7 +10,7 @@ import com.exsample.maria.mobi2.present.ProfilePresenter;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ProfilePresenter presenter;
+    private ProfilePresenter presenter;
 
     public static Intent start(Context context) {
         return new Intent(context, ProfileActivity.class);
