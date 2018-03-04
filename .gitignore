@@ -10,11 +10,11 @@
 
 
 
-.idea
-.java
-.release
-.androidTest
-.test
+/.idea
+/app/release
+/java
+/app/src/androidTest
+/app/src/test
 *.stackdump
 
 
