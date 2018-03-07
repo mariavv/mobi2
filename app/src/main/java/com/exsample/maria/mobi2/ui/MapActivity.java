@@ -1,22 +1,25 @@
 package com.exsample.maria.mobi2.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
-import com.exsample.maria.mobi2.present.MainPresenter;
+import com.exsample.maria.mobi2.present.MapPresenter;
+import com.exsample.maria.mobi2.view.MapView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MapActivity extends MvpAppCompatActivity implements MapView{
 
     private TextView helloView;
 
-    private MainPresenter presenter;
+    @InjectPresenter
+    MapPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        presenter = new MainPresenter();
-        presenter.onCreateActivity(MainActivity.this);
+        presenter = new MapPresenter();
+        presenter.onCreateActivity(MapActivity.this);
     }
 
     private void initViews() {
@@ -40,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.signInBtn:
-                        presenter.signInBtnPressed(MainActivity.this);
+                        presenter.signInBtnPressed(MapActivity.this);
                         break;
                     case R.id.signOutBtn:
-                        presenter.signOutBtnPressed(MainActivity.this);
+                        presenter.signOutBtnPressed(MapActivity.this);
                         break;
                     case R.id.profileBtn:
-                        presenter.profileBtnPressed(MainActivity.this);
+                        presenter.profileBtnPressed(MapActivity.this);
                         break;
                 }
             }
@@ -60,18 +63,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        presenter.activityResult(MainActivity.this, requestCode, resultCode, data);
+        presenter.activityResult(MapActivity.this, requestCode, resultCode, data);
     }
 
+    @Override
     public void sayHi(String greeting) {
         helloView.setText(greeting);
     }
 
+    @Override
     public void sayHi(int greeting) {
         helloView.setText(greeting);
     }
 
+    @Override
     public void showError(String errMessage) {
-        Toast.makeText(MainActivity.this, errMessage, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MapActivity.this, errMessage, Toast.LENGTH_SHORT).show();
     }
 }

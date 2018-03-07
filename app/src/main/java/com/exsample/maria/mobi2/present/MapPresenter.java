@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.arellomobile.mvp.InjectViewState;
+import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.ui.AuthActivity;
-import com.exsample.maria.mobi2.ui.MainActivity;
+import com.exsample.maria.mobi2.ui.MapActivity;
 import com.exsample.maria.mobi2.ui.ProfileActivity;
+import com.exsample.maria.mobi2.view.MapView;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,22 +23,25 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by maria on 28.02.2018
  */
 
-public class MainPresenter {
+@InjectViewState
+public class MapPresenter extends MvpPresenter<MapView> {
 
     private static final int SIGN_IN = 11;
 
-    private void changeText(MainActivity activity) {
+    private void changeText(MapActivity activity) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            activity.sayHi(String.format(activity.getString(R.string.hello_user), user.getEmail()));
+            getViewState().sayHi("hj");
+            //activity.sayHi(String.format(activity.getString(R.string.hello_user), user.getEmail()));
         }
+        getViewState().sayHi(String.format(activity.getString(R.string.hello_user), "hj"));
     }
 
-    public void signOutBtnPressed(MainActivity activity) {
+    public void signOutBtnPressed(MapActivity activity) {
         signOut(activity);
     }
 
-    private void signOut(final MainActivity activity) {
+    private void signOut(final MapActivity activity) {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             AuthUI.getInstance()
                     .signOut(activity)
@@ -55,13 +61,13 @@ public class MainPresenter {
         }
     }
 
-    public void signInBtnPressed(MainActivity activity) {
+    public void signInBtnPressed(MapActivity activity) {
         signOut(activity);
         activity.startActivityForResult(AuthActivity.start(activity), SIGN_IN);
     }
 
     @SuppressLint("RestrictedApi")
-    public void activityResult(MainActivity activity, int requestCode, int resultCode, Intent data) {
+    public void activityResult(MapActivity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode == SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
@@ -77,11 +83,11 @@ public class MainPresenter {
         }
     }
 
-    public void onCreateActivity(MainActivity activity) {
+    public void onCreateActivity(MapActivity activity) {
         changeText(activity);
     }
 
-    public void profileBtnPressed(MainActivity activity) {
+    public void profileBtnPressed(MapActivity activity) {
         activity.startActivity(ProfileActivity.start(activity));
     }
 }
