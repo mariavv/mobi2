@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainPresenter {
 
-    private static final int AUTH_ACTIVITY = 11;
+    private static final int SIGN_IN = 11;
 
     private void changeText(MainActivity activity) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -57,12 +57,12 @@ public class MainPresenter {
 
     public void signInBtnPressed(MainActivity activity) {
         signOut(activity);
-        activity.startActivityForResult(AuthActivity.start(activity), AUTH_ACTIVITY);
+        activity.startActivityForResult(AuthActivity.start(activity), SIGN_IN);
     }
 
     @SuppressLint("RestrictedApi")
     public void activityResult(MainActivity activity, int requestCode, int resultCode, Intent data) {
-        if (requestCode == AUTH_ACTIVITY) {
+        if (requestCode == SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == Activity.RESULT_OK) {

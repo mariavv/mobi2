@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         helloView = findViewById(R.id.helloView);
+
         Button signOutBtn = findViewById(R.id.signOutBtn);
         Button signInBtn = findViewById(R.id.signInBtn);
         Button profileBtn = findViewById(R.id.profileBtn);
