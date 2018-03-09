@@ -7,7 +7,7 @@
     android:background="@color/colorAuth"
     android:focusable="true"
     android:theme="@style/AuthTheme"
-    tools:context="com.exsample.maria.mobi2.ui.AuthActivity">
+    tools:context=".ui.activities.AuthActivity">
 
     <ImageView
         android:id="@+id/imageView"

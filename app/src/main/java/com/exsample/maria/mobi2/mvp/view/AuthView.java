@@ -1,4 +1,4 @@
-package com.exsample.maria.mobi2.view;
+package com.exsample.maria.mobi2.mvp.view;
 
 
 import com.arellomobile.mvp.MvpView;

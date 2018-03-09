@@ -1,42 +1,41 @@
-package com.exsample.maria.mobi2.present;
+package com.exsample.maria.mobi2.mvp.present;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
-import com.exsample.maria.mobi2.ui.MapActivity;
-import com.exsample.maria.mobi2.view.MapView;
-import com.firebase.ui.auth.AuthUI;
+import com.exsample.maria.mobi2.manager.AuthManager;
+import com.exsample.maria.mobi2.mvp.present.i.IMapPresenter;
+import com.exsample.maria.mobi2.ui.activities.MapActivity;
+import com.exsample.maria.mobi2.mvp.view.MapView;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 
 /**
  * Created by maria on 28.02.2018
  */
 
 @InjectViewState
-public class MapPresenter extends MvpPresenter<MapView> {
+public class MapPresenter extends MvpPresenter<MapView> implements IMapPresenter{
 
     private static final int SIGN_IN = 11;
 
-    private void changeText(MapActivity activity, int resGreeting) {
-        FirebaseUser user = getCurrentUser();
-        if (user != null) {
-            getViewState().sayHi(String.format(activity.getString(resGreeting), user.getEmail()));
+    @Override
+    public void changeText(MapActivity activity, int resGreeting) {
+        AuthManager manager = new AuthManager();
+        if (manager.userExists()) {
+            getViewState().sayHi(String.format(activity.getString(resGreeting), manager.getEmail()));
         } else {
             getViewState().sayHi(resGreeting);
         }
     }
 
-    private FirebaseUser getCurrentUser() {
-        return FirebaseAuth.getInstance().getCurrentUser();
+    @Override
+    public void error(String message) {
+        getViewState().showError(message);
     }
 
     public void signOutBtnPressed(MapActivity activity) {
@@ -44,21 +43,7 @@ public class MapPresenter extends MvpPresenter<MapView> {
     }
 
     private void signOut(final MapActivity activity) {
-        if (getCurrentUser() != null) {
-            AuthUI.getInstance()
-                    .signOut(activity)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                changeText(activity, R.string.hello_world);
-                            } else {
-                                if (task.getException() != null) {
-                                    getViewState().showError(task.getException().getMessage());
-                                }
-                            }
-                        }
-                    });
-        }
+        (new AuthManager()).signOut(this, activity);
     }
 
     public void signInBtnPressed(MapActivity activity) {

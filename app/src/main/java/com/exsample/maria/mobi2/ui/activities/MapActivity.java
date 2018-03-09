@@ -1,4 +1,4 @@
-package com.exsample.maria.mobi2.ui;
+package com.exsample.maria.mobi2.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
-import com.exsample.maria.mobi2.present.MapPresenter;
-import com.exsample.maria.mobi2.view.MapView;
+import com.exsample.maria.mobi2.mvp.present.MapPresenter;
+import com.exsample.maria.mobi2.mvp.view.MapView;
 
 
 public class MapActivity extends MvpAppCompatActivity implements MapView {
