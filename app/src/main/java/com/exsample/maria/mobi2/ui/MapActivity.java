@@ -14,7 +14,7 @@ import com.exsample.maria.mobi2.present.MapPresenter;
 import com.exsample.maria.mobi2.view.MapView;
 
 
-public class MapActivity extends MvpAppCompatActivity implements MapView{
+public class MapActivity extends MvpAppCompatActivity implements MapView {
 
     private TextView helloView;
 
@@ -27,13 +27,11 @@ public class MapActivity extends MvpAppCompatActivity implements MapView{
         setContentView(R.layout.activity_main);
 
         initViews();
-        presenter = new MapPresenter();
-        presenter.onCreateActivity(MapActivity.this.getString(R.string.hello_user));
+        presenter.onCreateActivity(this, R.string.hello_user);
     }
 
     private void initViews() {
         helloView = findViewById(R.id.helloView);
-
         Button signOutBtn = findViewById(R.id.signOutBtn);
         Button signInBtn = findViewById(R.id.signInBtn);
         Button profileBtn = findViewById(R.id.profileBtn);
@@ -49,7 +47,7 @@ public class MapActivity extends MvpAppCompatActivity implements MapView{
                         presenter.signOutBtnPressed(MapActivity.this);
                         break;
                     case R.id.profileBtn:
-                        presenter.profileBtnPressed(MapActivity.this);
+                        presenter.profileBtnPressed();
                         break;
                 }
             }
@@ -63,7 +61,7 @@ public class MapActivity extends MvpAppCompatActivity implements MapView{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        presenter.activityResult(MapActivity.this, requestCode, resultCode, data);
+        presenter.activityResult(this, requestCode, resultCode, data);
     }
 
     @Override
@@ -79,5 +77,15 @@ public class MapActivity extends MvpAppCompatActivity implements MapView{
     @Override
     public void showError(String errMessage) {
         Toast.makeText(MapActivity.this, errMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startAuthActivity(final int reguestCode) {
+        startActivityForResult(AuthActivity.start(this), reguestCode);
+    }
+
+    @Override
+    public void startProfileActivity() {
+        startActivity(ProfileActivity.start(this));
     }
 }

@@ -8,6 +8,12 @@ import com.arellomobile.mvp.MvpView;
 
 public interface MapView extends MvpView {
     void sayHi(String greeting);
+
     void sayHi(int greeting);
+
     void showError(String errMessage);
+
+    void startAuthActivity(final int reguestCode);
+
+    void startProfileActivity();
 }

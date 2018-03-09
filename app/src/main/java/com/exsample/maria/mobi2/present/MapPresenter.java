@@ -8,9 +8,7 @@ import android.support.annotation.NonNull;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
-import com.exsample.maria.mobi2.ui.AuthActivity;
 import com.exsample.maria.mobi2.ui.MapActivity;
-import com.exsample.maria.mobi2.ui.ProfileActivity;
 import com.exsample.maria.mobi2.view.MapView;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -28,30 +26,34 @@ public class MapPresenter extends MvpPresenter<MapView> {
 
     private static final int SIGN_IN = 11;
 
-    private void changeText(String greeting) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private void changeText(MapActivity activity, int resGreeting) {
+        FirebaseUser user = getCurrentUser();
         if (user != null) {
-            getViewState().sayHi(String.format(greeting, user.getEmail()));
+            getViewState().sayHi(String.format(activity.getString(resGreeting), user.getEmail()));
+        } else {
+            getViewState().sayHi(resGreeting);
         }
     }
 
-    public void signOutBtnPressed() {
-        signOut();
+    private FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    private void signOut() {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+    public void signOutBtnPressed(MapActivity activity) {
+        signOut(activity);
+    }
+
+    private void signOut(final MapActivity activity) {
+        if (getCurrentUser() != null) {
             AuthUI.getInstance()
                     .signOut(activity)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                                    activity.sayHi(R.string.hello_world);
-                                }
+                                changeText(activity, R.string.hello_world);
                             } else {
                                 if (task.getException() != null) {
-                                    activity.showError(task.getException().getMessage());
+                                    getViewState().showError(task.getException().getMessage());
                                 }
                             }
                         }
@@ -59,33 +61,33 @@ public class MapPresenter extends MvpPresenter<MapView> {
         }
     }
 
-    public void signInBtnPressed() {
+    public void signInBtnPressed(MapActivity activity) {
         signOut(activity);
-        activity.startActivityForResult(AuthActivity.start(activity), SIGN_IN);
+        getViewState().startAuthActivity(SIGN_IN);
     }
 
     @SuppressLint("RestrictedApi")
-    public void activityResult(int requestCode, int resultCode, Intent data) {
+    public void activityResult(MapActivity activity, int requestCode, int resultCode, Intent data) {
         if (requestCode == SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == Activity.RESULT_OK) {
-                changeText(activity);
+                changeText(activity, R.string.hello_user);
             } else {
                 if (response != null) {
                     if (response.getException() != null) {
-                        activity.showError(response.getException().getMessage());
+                        getViewState().showError(response.getException().getMessage());
                     }
                 }
             }
         }
     }
 
-    public void onCreateActivity(String greeting) {
-        changeText(greeting);
+    public void onCreateActivity(MapActivity activity, int resGreeting) {
+        changeText(activity, resGreeting);
     }
 
-    public void profileBtnPressed(MapActivity activity) {
-        activity.startActivity(ProfileActivity.start(activity));
+    public void profileBtnPressed() {
+        getViewState().startProfileActivity();
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,17 +16,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.present.AuthPresenter;
+import com.exsample.maria.mobi2.view.AuthView;
 
-public class AuthActivity extends AppCompatActivity {
+public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
     private EditText emailEd;
     private EditText passEd;
     private Button regBtn;
     private Button loginBtn;
 
-    private AuthPresenter presenter;
+    @InjectPresenter
+    AuthPresenter presenter;
 
     public static Intent start(Context context) {
         return new Intent(context, AuthActivity.class);
@@ -38,15 +41,13 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        if ( getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         configViews();
         fillScroll(); // позволяет растянуть scrollView на высоту экрана
-
-        presenter = new AuthPresenter();
     }
 
     private void configViews() {
@@ -63,7 +64,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                presenter.textChanged(AuthActivity.this, edGetTextLength(emailEd), edGetTextLength(passEd));
+                presenter.textChanged(edGetTextLength(emailEd), edGetTextLength(passEd));
             }
 
             @Override
@@ -80,7 +81,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                presenter.textChanged(AuthActivity.this, edGetTextLength(emailEd), edGetTextLength(passEd));
+                presenter.textChanged(edGetTextLength(emailEd), edGetTextLength(passEd));
             }
 
             @Override
@@ -92,14 +93,14 @@ public class AuthActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.regBtnPressed(AuthActivity.this, edGetText(emailEd), edGetText(passEd));
+                presenter.regBtnPressed(edGetText(emailEd), edGetText(passEd));
             }
         });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.loginBtnPressed(AuthActivity.this, edGetText(emailEd), edGetText(passEd));
+                presenter.loginBtnPressed(edGetText(emailEd), edGetText(passEd));
             }
         });
     }
@@ -145,22 +146,25 @@ public class AuthActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // как называется эта кнопка?
         if (item.getItemId() == 16908332) {
-            presenter.backBtnPressed(AuthActivity.this);
+            presenter.backBtnPressed();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void setUpLoginBtn(int text, int color, boolean enabled) {
-        loginBtn.setText(text);
-        loginBtn.setBackgroundColor(color);
+    @Override
+    public void setUpLoginBtn(int resText, int resColor, boolean enabled) {
+        loginBtn.setText(resText);
+        loginBtn.setBackgroundColor(this.getResources().getColor(resColor));
         loginBtn.setEnabled(enabled);
         regBtn.setEnabled(enabled);
     }
 
+    @Override
     public void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void close(int result) {
         setResult(result, new Intent());
         finish();
