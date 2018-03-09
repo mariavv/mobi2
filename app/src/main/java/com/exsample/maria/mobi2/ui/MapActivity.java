@@ -28,7 +28,7 @@ public class MapActivity extends MvpAppCompatActivity implements MapView{
 
         initViews();
         presenter = new MapPresenter();
-        presenter.onCreateActivity(MapActivity.this);
+        presenter.onCreateActivity(MapActivity.this.getString(R.string.hello_user));
     }
 
     private void initViews() {

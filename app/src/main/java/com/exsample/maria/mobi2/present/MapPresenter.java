@@ -28,20 +28,18 @@ public class MapPresenter extends MvpPresenter<MapView> {
 
     private static final int SIGN_IN = 11;
 
-    private void changeText(MapActivity activity) {
+    private void changeText(String greeting) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            getViewState().sayHi("hj");
-            //activity.sayHi(String.format(activity.getString(R.string.hello_user), user.getEmail()));
+            getViewState().sayHi(String.format(greeting, user.getEmail()));
         }
-        getViewState().sayHi(String.format(activity.getString(R.string.hello_user), "hj"));
     }
 
-    public void signOutBtnPressed(MapActivity activity) {
-        signOut(activity);
+    public void signOutBtnPressed() {
+        signOut();
     }
 
-    private void signOut(final MapActivity activity) {
+    private void signOut() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             AuthUI.getInstance()
                     .signOut(activity)
@@ -61,13 +59,13 @@ public class MapPresenter extends MvpPresenter<MapView> {
         }
     }
 
-    public void signInBtnPressed(MapActivity activity) {
+    public void signInBtnPressed() {
         signOut(activity);
         activity.startActivityForResult(AuthActivity.start(activity), SIGN_IN);
     }
 
     @SuppressLint("RestrictedApi")
-    public void activityResult(MapActivity activity, int requestCode, int resultCode, Intent data) {
+    public void activityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
@@ -83,8 +81,8 @@ public class MapPresenter extends MvpPresenter<MapView> {
         }
     }
 
-    public void onCreateActivity(MapActivity activity) {
-        changeText(activity);
+    public void onCreateActivity(String greeting) {
+        changeText(greeting);
     }
 
     public void profileBtnPressed(MapActivity activity) {
