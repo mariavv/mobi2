@@ -29,7 +29,7 @@ public class MapPresenter extends MvpPresenter<MapView> implements IMapPresenter
         if (manager.userExists()) {
             getViewState().sayHi(String.format(activity.getString(resGreeting), manager.getEmail()));
         } else {
-            getViewState().sayHi(resGreeting);
+            getViewState().sayHi(activity.getString(resGreeting)/*resGreeting*/);
         }
     }
 
@@ -68,7 +68,7 @@ public class MapPresenter extends MvpPresenter<MapView> implements IMapPresenter
         }
     }
 
-    public void onCreateActivity(MapActivity activity, int resGreeting) {
+    public void onActivityCreate(MapActivity activity, int resGreeting) {
         changeText(activity, resGreeting);
     }
 

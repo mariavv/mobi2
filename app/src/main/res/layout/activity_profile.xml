@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.activities.ProfileActivity">
+    tools:context=".ui.ProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +29,7 @@
             android:letterSpacing="@dimen/profile_headText_letterSpacing"
             android:lineSpacingExtra="@dimen/profile_headText_lineSpacingExtra"
             android:layout_gravity="center_horizontal"
+            android:focusable="true"
             />
 
         <!--в разработке-->
@@ -68,6 +69,7 @@
             />
 
         <TextView
+            android:id="@+id/displayNameEd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -89,6 +91,7 @@
             />
 
         <TextView
+            android:id="@+id/phoneNumberEd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -109,7 +112,8 @@
             tools:text="Email"
             />
 
-        <TextView
+        <EditText
+            android:id="@+id/emailEd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -117,7 +121,7 @@
             android:letterSpacing="0.02"
             android:lineSpacingExtra="4sp"
             tools:text="derybin@gmail.com"
-            />
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -165,7 +169,7 @@
             />
 
         <Button
-            android:id="@+id/signInBtn"
+            android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#4c4c4c"

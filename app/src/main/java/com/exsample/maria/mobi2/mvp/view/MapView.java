@@ -9,7 +9,7 @@ import com.arellomobile.mvp.MvpView;
 public interface MapView extends MvpView {
     void sayHi(String greeting);
 
-    void sayHi(int greeting);
+    void sayHi(int greetingRes);
 
     void showError(String errMessage);
 

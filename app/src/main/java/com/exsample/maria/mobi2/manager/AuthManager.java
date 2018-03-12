@@ -1,6 +1,7 @@
 package com.exsample.maria.mobi2.manager;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.i.IAuthPresenter;
@@ -18,16 +19,13 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class AuthManager {
+
     private FirebaseUser getCurrentUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public boolean userExists() {
         return getCurrentUser() != null;
-    }
-
-    public String getEmail() {
-        return getCurrentUser().getEmail();
     }
 
     public void signOut(final IMapPresenter presenter, final MapActivity activity) {
@@ -84,5 +82,30 @@ public class AuthManager {
                         }
                     }
                 });
+    }
+
+    public String getEmail() {
+        if (userExists()) {
+            return getCurrentUser().getEmail();
+        }
+        return null;
+    }
+
+    public String getDisplayName() {
+        if (userExists()) {
+            return getCurrentUser().getDisplayName();
+        }
+        return null;
+    }
+
+    public String getPhoneNumber() {
+        if (userExists()) {
+            return getCurrentUser().getPhoneNumber();
+        }
+        return null;
+    }
+
+    public void updateEmail(String email) {
+        getCurrentUser().updateEmail(email);
     }
 }

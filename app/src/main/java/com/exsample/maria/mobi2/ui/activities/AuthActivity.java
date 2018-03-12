@@ -51,8 +51,8 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
     }
 
     private void configViews() {
-        emailEd = findViewById(R.id.enter_email);
-        passEd = findViewById(R.id.enter_pass);
+        emailEd = findViewById(R.id.enterEmail);
+        passEd = findViewById(R.id.enterPass);
         regBtn = findViewById(R.id.regBtn);
         loginBtn = findViewById(R.id.loginBtn);
 
@@ -145,7 +145,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // как называется эта кнопка?
-        if (item.getItemId() == 16908332) {
+        if (item.getItemId() == R.id.parent/*16908332*/) {
             presenter.backBtnPressed();
         }
         return super.onOptionsItemSelected(item);

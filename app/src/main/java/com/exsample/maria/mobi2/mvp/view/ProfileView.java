@@ -7,4 +7,7 @@ import com.arellomobile.mvp.MvpView;
  */
 
 public interface ProfileView extends MvpView {
+    void fillFields(final String email, final String displayName, final String phoneNumber);
+
+    void say(int messageRes);
 }

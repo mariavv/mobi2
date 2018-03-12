@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mobi2</string>
+    <string name="app_name">Карты</string>
     <string name="hello_world">Hello World!</string>
     <string name="signed_out">You sign out</string>
     <string name="hello_user">Hello, %s</string>
@@ -20,4 +20,6 @@
     <string name="profile_headText">Михаил Дерябин</string>
     <string name="profile_BtnSave_text">Сохранить</string>
     <string name="profileBtn_text">Профиль</string>
+    <string name="profile_activity_name">Профиль</string>
+    <string name="saved">Сохранено</string>
 </resources>

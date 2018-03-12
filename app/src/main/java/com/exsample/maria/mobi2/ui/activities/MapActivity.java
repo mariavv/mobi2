@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.MapPresenter;
 import com.exsample.maria.mobi2.mvp.view.MapView;
+import com.exsample.maria.mobi2.ui.ProfileActivity;
 
 
 public class MapActivity extends MvpAppCompatActivity implements MapView {
@@ -27,7 +28,7 @@ public class MapActivity extends MvpAppCompatActivity implements MapView {
         setContentView(R.layout.activity_main);
 
         initViews();
-        presenter.onCreateActivity(this, R.string.hello_user);
+        presenter.onActivityCreate(this, R.string.hello_world);
     }
 
     private void initViews() {
@@ -70,8 +71,8 @@ public class MapActivity extends MvpAppCompatActivity implements MapView {
     }
 
     @Override
-    public void sayHi(int greeting) {
-        helloView.setText(greeting);
+    public void sayHi(int greetingRes) {
+        helloView.setText(greetingRes);
     }
 
     @Override
