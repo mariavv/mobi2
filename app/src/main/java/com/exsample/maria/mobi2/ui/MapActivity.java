@@ -1,4 +1,4 @@
-package com.exsample.maria.mobi2.ui.activities;
+package com.exsample.maria.mobi2.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.MapPresenter;
 import com.exsample.maria.mobi2.mvp.view.MapView;
-import com.exsample.maria.mobi2.ui.ProfileActivity;
 
 
 public class MapActivity extends MvpAppCompatActivity implements MapView {
@@ -28,7 +27,7 @@ public class MapActivity extends MvpAppCompatActivity implements MapView {
         setContentView(R.layout.activity_main);
 
         initViews();
-        presenter.onActivityCreate(this, R.string.hello_world);
+        presenter.onActivityCreate(R.string.hello_world);
     }
 
     private void initViews() {
@@ -62,22 +61,22 @@ public class MapActivity extends MvpAppCompatActivity implements MapView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        presenter.activityResult(this, requestCode, resultCode, data);
+        presenter.activityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void sayHi(String greeting) {
-        helloView.setText(greeting);
+    public void changeText(String user) {
+        helloView.setText(String.format(getString(R.string.hello_user), user));
     }
 
     @Override
-    public void sayHi(int greetingRes) {
+    public void changeText(int greetingRes) {
         helloView.setText(greetingRes);
     }
 
     @Override
-    public void showError(String errMessage) {
-        Toast.makeText(MapActivity.this, errMessage, Toast.LENGTH_SHORT).show();
+    public void say(String message) {
+        Toast.makeText(MapActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

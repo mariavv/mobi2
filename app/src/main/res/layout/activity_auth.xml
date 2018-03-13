@@ -7,7 +7,7 @@
     android:background="@color/colorAuth"
     android:focusable="true"
     android:theme="@style/AuthTheme"
-    tools:context=".ui.activities.AuthActivity">
+    tools:context=".ui.AuthActivity">
 
     <ImageView
         android:id="@+id/imageView"

@@ -7,11 +7,11 @@ import com.arellomobile.mvp.MvpView;
  */
 
 public interface MapView extends MvpView {
-    void sayHi(String greeting);
+    void changeText(String user);
 
-    void sayHi(int greetingRes);
+    void changeText(int greetingRes);
 
-    void showError(String errMessage);
+    void say(String message);
 
     void startAuthActivity(final int reguestCode);
 

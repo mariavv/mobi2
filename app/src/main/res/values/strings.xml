@@ -22,4 +22,5 @@
     <string name="profileBtn_text">Профиль</string>
     <string name="profile_activity_name">Профиль</string>
     <string name="saved">Сохранено</string>
+    <string name="not_valid">Не все поля корректны</string>
 </resources>

@@ -13,17 +13,34 @@ import com.exsample.maria.mobi2.mvp.view.ProfileView;
  */
 
 @InjectViewState
-public class ProfilePresenter extends MvpPresenter<ProfileView> {
+public class ProfilePresenter extends MvpPresenter<ProfileView> implements AuthManager.AuthManagerWatcher {
     public void onActivityCreate() {
-        AuthManager manager = new AuthManager();
+        AuthManager manager = new AuthManager(this);
         getViewState().fillFields( manager.getEmail(), manager.getDisplayName(), manager.getPhoneNumber() );
     }
 
     public void onSaveBtnPressed(String email, String displayName, String phoneNumber) {
-        AuthManager manager = new AuthManager();
+        AuthManager manager = new AuthManager(this);
         if ( (Patterns.EMAIL_ADDRESS.matcher(email).matches()) && (displayName.length() > 0) ) {
             //manager.updateEmail(email);
             getViewState().say(R.string.saved);
+        } else {
+            getViewState().say(R.string.not_valid);
         }
+    }
+
+    @Override
+    public void signInSuccessful() {
+
+    }
+
+    @Override
+    public void signOutSuccessful() {
+
+    }
+
+    @Override
+    public void error(String message) {
+
     }
 }

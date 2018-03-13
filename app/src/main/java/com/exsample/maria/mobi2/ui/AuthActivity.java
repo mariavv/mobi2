@@ -1,4 +1,4 @@
-package com.exsample.maria.mobi2.ui.activities;
+package com.exsample.maria.mobi2.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -145,7 +145,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // как называется эта кнопка?
-        if (item.getItemId() == R.id.parent/*16908332*/) {
+        if (item.getItemId() == 16908332) {
             presenter.backBtnPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -160,7 +160,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
     }
 
     @Override
-    public void showError(String message) {
+    public void say(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 

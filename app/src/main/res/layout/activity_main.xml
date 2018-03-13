@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorMainFon"
-    tools:context=".ui.activities.MapActivity">
+    tools:context=".ui.MapActivity">
 
     <TextView
         android:id="@+id/helloView"

@@ -10,7 +10,7 @@ import com.arellomobile.mvp.MvpView;
 public interface AuthView extends MvpView {
     void setUpLoginBtn(int resText, int resColor, boolean enabled);
 
-    void showError(String message);
+    void say(String message);
 
     void close(int result);
 }

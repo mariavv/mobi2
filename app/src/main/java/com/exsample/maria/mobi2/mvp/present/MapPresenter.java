@@ -8,8 +8,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.manager.AuthManager;
-import com.exsample.maria.mobi2.mvp.present.i.IMapPresenter;
-import com.exsample.maria.mobi2.ui.activities.MapActivity;
+import com.exsample.maria.mobi2.ui.MapActivity;
 import com.exsample.maria.mobi2.mvp.view.MapView;
 import com.firebase.ui.auth.IdpResponse;
 
@@ -19,23 +18,32 @@ import com.firebase.ui.auth.IdpResponse;
  */
 
 @InjectViewState
-public class MapPresenter extends MvpPresenter<MapView> implements IMapPresenter{
+public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.AuthManagerWatcher {
 
     private static final int SIGN_IN = 11;
 
-    @Override
-    public void changeText(MapActivity activity, int resGreeting) {
-        AuthManager manager = new AuthManager();
+    private void sayHi(int resGreeting) {
+        AuthManager manager = new AuthManager(this);
         if (manager.userExists()) {
-            getViewState().sayHi(String.format(activity.getString(resGreeting), manager.getEmail()));
+            getViewState().changeText(manager.getEmail());
         } else {
-            getViewState().sayHi(activity.getString(resGreeting)/*resGreeting*/);
+            getViewState().changeText(resGreeting);
         }
     }
 
     @Override
     public void error(String message) {
-        getViewState().showError(message);
+        getViewState().say(message);
+    }
+
+    @Override
+    public void signInSuccessful() {
+
+    }
+
+    @Override
+    public void signOutSuccessful() {
+        sayHi(R.string.hello_world);
     }
 
     public void signOutBtnPressed(MapActivity activity) {
@@ -43,7 +51,7 @@ public class MapPresenter extends MvpPresenter<MapView> implements IMapPresenter
     }
 
     private void signOut(final MapActivity activity) {
-        (new AuthManager()).signOut(this, activity);
+        (new AuthManager(this)).signOut(activity);
     }
 
     public void signInBtnPressed(MapActivity activity) {
@@ -52,24 +60,24 @@ public class MapPresenter extends MvpPresenter<MapView> implements IMapPresenter
     }
 
     @SuppressLint("RestrictedApi")
-    public void activityResult(MapActivity activity, int requestCode, int resultCode, Intent data) {
+    public void activityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == Activity.RESULT_OK) {
-                changeText(activity, R.string.hello_user);
+                sayHi(R.string.hello_user);
             } else {
                 if (response != null) {
                     if (response.getException() != null) {
-                        getViewState().showError(response.getException().getMessage());
+                        getViewState().say(response.getException().getMessage());
                     }
                 }
             }
         }
     }
 
-    public void onActivityCreate(MapActivity activity, int resGreeting) {
-        changeText(activity, resGreeting);
+    public void onActivityCreate(int resGreeting) {
+        sayHi(resGreeting);
     }
 
     public void profileBtnPressed() {

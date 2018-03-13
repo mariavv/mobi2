@@ -1,12 +1,8 @@
 package com.exsample.maria.mobi2.manager;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.exsample.maria.mobi2.R;
-import com.exsample.maria.mobi2.mvp.present.i.IAuthPresenter;
-import com.exsample.maria.mobi2.mvp.present.i.IMapPresenter;
-import com.exsample.maria.mobi2.ui.activities.MapActivity;
+import com.exsample.maria.mobi2.ui.MapActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +15,22 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class AuthManager {
+    private AuthManagerWatcher watcher;
+
+    public interface AuthManagerWatcher {
+        void signInSuccessful();
+
+        void signOutSuccessful();
+
+        void error(String message);
+    }
+    public interface i {
+        void signInSuccessful();
+    }
+
+    public AuthManager(AuthManagerWatcher watcher) {
+        this.watcher = watcher;
+    }
 
     private FirebaseUser getCurrentUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
@@ -28,17 +40,17 @@ public class AuthManager {
         return getCurrentUser() != null;
     }
 
-    public void signOut(final IMapPresenter presenter, final MapActivity activity) {
+    public void signOut(final MapActivity activity) {
         if (getCurrentUser() != null) {
             AuthUI.getInstance()
                     .signOut(activity)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                presenter.changeText(activity, R.string.hello_world);
+                                watcher.signOutSuccessful();
                             } else {
                                 if (task.getException() != null) {
-                                    presenter.error(task.getException().getMessage());
+                                    watcher.error(task.getException().getMessage());
                                 }
                             }
                         }
@@ -46,7 +58,7 @@ public class AuthManager {
         }
     }
 
-    public void register(final IAuthPresenter presenter, final String email, final String pass) {
+    public void register(final String email, final String pass) {
         FirebaseAuth
                 .getInstance()
                 .createUserWithEmailAndPassword(email, pass)
@@ -54,21 +66,21 @@ public class AuthManager {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            signIn(presenter, email, pass);
+                            signIn(email, pass);
                         } else {
-                            showError(presenter, task);
+                            showError(task);
                         }
                     }
                 });
     }
 
-    private void showError(IAuthPresenter presenter, Task<AuthResult> task) {
+    private void showError(Task<AuthResult> task) {
         if (task.getException() != null) {
-            presenter.error(task.getException().getMessage());
+            watcher.error(task.getException().getMessage());
         }
     }
 
-    public void signIn(final IAuthPresenter presenter, String email, String pass) {
+    public void signIn(String email, String pass) {
         FirebaseAuth
                 .getInstance()
                 .signInWithEmailAndPassword(email, pass)
@@ -76,9 +88,9 @@ public class AuthManager {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            presenter.signInSuccessful();
+                            watcher.signInSuccessful();
                         } else {
-                            showError(presenter, task);
+                            showError(task);
                         }
                     }
                 });

@@ -6,7 +6,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.manager.AuthManager;
-import com.exsample.maria.mobi2.mvp.present.i.IAuthPresenter;
 import com.exsample.maria.mobi2.mvp.view.AuthView;
 
 /**
@@ -14,16 +13,16 @@ import com.exsample.maria.mobi2.mvp.view.AuthView;
  */
 
 @InjectViewState
-public class AuthPresenter extends MvpPresenter<AuthView> implements IAuthPresenter {
+public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager.AuthManagerWatcher {
 
     private static final int MIN_LENGTH = 8;
 
     public void regBtnPressed(final String email, final String pass) {
-        (new AuthManager()).register(this, email, pass);
+        (new AuthManager(this)).register(email, pass);
     }
 
     private void login(String email, String pass) {
-        (new AuthManager()).signIn(this, email, pass);
+        (new AuthManager(this)).signIn(email, pass);
     }
 
     public void loginBtnPressed(String email, String pass) {
@@ -50,11 +49,16 @@ public class AuthPresenter extends MvpPresenter<AuthView> implements IAuthPresen
 
     @Override
     public void error(String message) {
-        getViewState().showError(message);
+        getViewState().say(message);
     }
 
     @Override
     public void signInSuccessful() {
         getViewState().close(Activity.RESULT_OK);
+    }
+
+    @Override
+    public void signOutSuccessful() {
+
     }
 }
