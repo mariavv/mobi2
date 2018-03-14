@@ -48,6 +48,9 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
         configViews();
         fillScroll(); // позволяет растянуть scrollView на высоту экрана
+
+        //emailEd.setText(getString(R.string.email));
+        //passEd.setText(getString(R.string.pass));
     }
 
     private void configViews() {

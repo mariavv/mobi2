@@ -8,3 +8,5 @@
 /app/src/test
 /build
 /java
+
+strings_private.xml

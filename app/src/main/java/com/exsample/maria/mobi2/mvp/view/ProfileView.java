@@ -1,5 +1,7 @@
 package com.exsample.maria.mobi2.mvp.view;
 
+import android.content.Context;
+
 import com.arellomobile.mvp.MvpView;
 
 /**
@@ -12,4 +14,6 @@ public interface ProfileView extends MvpView {
     void say(int messageRes);
 
     void say(String message);
+
+    void close();
 }

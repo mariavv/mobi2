@@ -21,7 +21,6 @@ android {
 dependencies {
     //with 27sdk :app:transformDexArchiveWithExternalLibsDexMerderForDebug
     // java.lang.RuntimeException: com.android.builder.dexing.DexArchiveMergerException: Unable to merge dex
-    ext.support_version = '26.1.0'
     //ext.support_version = '27.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:26.1.0"
@@ -39,8 +38,10 @@ dependencies {
     compile "com.arello-mobile:moxy-android:$moxy_version"
     compile "com.arello-mobile:moxy-app-compat:$moxy_version"
 
+    ext.firebaseui_version = '3.2.1'
     compile 'com.google.firebase:firebase-core:11.8.0'
-    compile 'com.firebaseui:firebase-ui-auth:3.2.1'
+    compile "com.firebaseui:firebase-ui-auth:$firebaseui_version"
+    implementation "com.firebaseui:firebase-ui-database:$firebaseui_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

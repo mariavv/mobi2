@@ -55,9 +55,18 @@ public class AuthManager {
         return getCurrentUser() != null;
     }
 
+    public String getUserId() {
+        if (userExists()) {
+            return getCurrentUser().getUid();
+        } else {
+            return null;
+        }
+    }
+
     public void signOut(final Context context) {
         if (getCurrentUser() != null) {
-            AuthUI.getInstance()
+            AuthUI
+                    .getInstance()
                     .signOut(context)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {

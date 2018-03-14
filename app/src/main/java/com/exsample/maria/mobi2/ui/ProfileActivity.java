@@ -3,6 +3,7 @@ package com.exsample.maria.mobi2.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,8 +34,8 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        presenter.onActivityCreate(this);
         initViews();
-        presenter.onActivityCreate();
     }
 
     private void initViews() {
@@ -46,7 +47,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onSaveBtnPressed(emailEd.getText().toString(),
+                presenter.onSaveBtnPressed(ProfileActivity.this, emailEd.getText().toString(),
                         displayNameEd.getText().toString(),
                         phoneNumberEd.getText().toString());
             }
@@ -62,11 +63,18 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void say(int messageRes) {
-        Toast.makeText(this, getString(messageRes), Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, getString(messageRes), Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
     }
 
     @Override
     public void say(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void close() {
+        finish();
     }
 }

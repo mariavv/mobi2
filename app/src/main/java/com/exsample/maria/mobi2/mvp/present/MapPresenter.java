@@ -76,6 +76,10 @@ public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.S
     }
 
     public void profileBtnPressed() {
-        getViewState().startProfileActivity();
+        if ((new AuthManager(this)).userExists()) {
+            getViewState().startProfileActivity();
+        } else {
+            getViewState().say("Вы не авторизованы");
+        }
     }
 }
