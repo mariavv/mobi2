@@ -16,4 +16,6 @@ public interface ProfileView extends MvpView {
     void say(String message);
 
     void close();
+
+    void showPopupMenu();
 }

@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,15 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         emailEd = findViewById(R.id.emailEd);
         displayNameEd = findViewById(R.id.displayNameEd);
         phoneNumberEd = findViewById(R.id.phoneNumberEd);
+        Button changePhotoBtn = findViewById(R.id.changePhotoBtn);
         Button saveBtn = findViewById(R.id.saveBtn);
+
+        changePhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onChangePhotoBtnPressed();
+            }
+        });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,18 +72,23 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void say(int messageRes) {
-        Toast toast = Toast.makeText(this, getString(messageRes), Toast.LENGTH_SHORT);
+        say(getString(messageRes));
+    }
+
+    @Override
+    public void say(String message) {
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
     }
 
     @Override
-    public void say(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void close() {
+        finish();
     }
 
     @Override
-    public void close() {
-        finish();
+    public void showPopupMenu() {
+        //PopupMenu popup = new PopupMenu(this, )
     }
 }

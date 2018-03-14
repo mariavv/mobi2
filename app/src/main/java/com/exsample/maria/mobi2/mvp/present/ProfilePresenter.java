@@ -65,4 +65,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     public void onError(String error) {
         getViewState().say(error);
     }
+
+    public void onChangePhotoBtnPressed() {
+        getViewState().showPopupMenu();
+    }
 }

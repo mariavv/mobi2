@@ -24,4 +24,5 @@
     <string name="saved">Сохранено</string>
     <string name="not_valid">Не все поля корректны</string>
     <string name="db_users_table">users</string>
+    <string name="profile_change_photo">Сменить фотографию</string>
 </resources>
