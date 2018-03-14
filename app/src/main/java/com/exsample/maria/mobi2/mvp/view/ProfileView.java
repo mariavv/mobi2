@@ -10,4 +10,6 @@ public interface ProfileView extends MvpView {
     void fillFields(final String email, final String displayName, final String phoneNumber);
 
     void say(int messageRes);
+
+    void say(String message);
 }

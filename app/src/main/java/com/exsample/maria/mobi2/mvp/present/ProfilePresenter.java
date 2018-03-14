@@ -30,17 +30,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView> implements AuthM
     }
 
     @Override
-    public void signInSuccessful() {
-
-    }
-
-    @Override
-    public void signOutSuccessful() {
-
-    }
-
-    @Override
     public void error(String message) {
-
+        getViewState().say(message);
     }
 }

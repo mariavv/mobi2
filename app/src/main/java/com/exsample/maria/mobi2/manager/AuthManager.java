@@ -19,7 +19,7 @@ public class AuthManager {
     private SignInListener signInListener;
     private SignOutListener signOutListener;
 
-    private interface Listener {
+    public interface Listener {
         void error(String message);
     }
 

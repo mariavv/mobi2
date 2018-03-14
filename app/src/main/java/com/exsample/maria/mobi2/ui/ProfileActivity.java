@@ -64,4 +64,9 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     public void say(int messageRes) {
         Toast.makeText(this, getString(messageRes), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void say(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }
