@@ -13,7 +13,7 @@ import com.exsample.maria.mobi2.mvp.view.ProfileView;
  */
 
 @InjectViewState
-public class ProfilePresenter extends MvpPresenter<ProfileView> implements AuthManager.AuthManagerWatcher {
+public class ProfilePresenter extends MvpPresenter<ProfileView> implements AuthManager.Listener {
     public void onActivityCreate() {
         AuthManager manager = new AuthManager(this);
         getViewState().fillFields( manager.getEmail(), manager.getDisplayName(), manager.getPhoneNumber() );

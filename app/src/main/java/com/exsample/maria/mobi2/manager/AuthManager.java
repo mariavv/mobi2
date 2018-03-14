@@ -1,8 +1,8 @@
 package com.exsample.maria.mobi2.manager;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.exsample.maria.mobi2.ui.MapActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,21 +15,36 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class AuthManager {
-    private AuthManagerWatcher watcher;
+    private Listener listener;
+    private SignInListener signInListener;
+    private SignOutListener signOutListener;
 
-    public interface AuthManagerWatcher {
+    private interface Listener {
+        void error(String message);
+    }
+
+    public interface SignInListener extends Listener {
         void signInSuccessful();
 
+        void error(String message);
+    }
+
+    public interface SignOutListener extends Listener {
         void signOutSuccessful();
 
         void error(String message);
     }
-    public interface i {
-        void signInSuccessful();
+
+    public AuthManager(Listener listener) {
+        this.listener = listener;
     }
 
-    public AuthManager(AuthManagerWatcher watcher) {
-        this.watcher = watcher;
+    public AuthManager(SignInListener signInListener) {
+        this.signInListener = signInListener;
+    }
+
+    public AuthManager(SignOutListener signOutListener) {
+        this.signOutListener = signOutListener;
     }
 
     private FirebaseUser getCurrentUser() {
@@ -40,17 +55,17 @@ public class AuthManager {
         return getCurrentUser() != null;
     }
 
-    public void signOut(final MapActivity activity) {
+    public void signOut(final Context context) {
         if (getCurrentUser() != null) {
             AuthUI.getInstance()
-                    .signOut(activity)
+                    .signOut(context)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                watcher.signOutSuccessful();
+                                signOutListener.signOutSuccessful();
                             } else {
                                 if (task.getException() != null) {
-                                    watcher.error(task.getException().getMessage());
+                                    listener.error(task.getException().getMessage());
                                 }
                             }
                         }
@@ -76,7 +91,7 @@ public class AuthManager {
 
     private void showError(Task<AuthResult> task) {
         if (task.getException() != null) {
-            watcher.error(task.getException().getMessage());
+            listener.error(task.getException().getMessage());
         }
     }
 
@@ -88,7 +103,7 @@ public class AuthManager {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            watcher.signInSuccessful();
+                            signInListener.signInSuccessful();
                         } else {
                             showError(task);
                         }

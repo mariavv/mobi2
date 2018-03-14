@@ -2,13 +2,13 @@ package com.exsample.maria.mobi2.mvp.present;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.manager.AuthManager;
-import com.exsample.maria.mobi2.ui.MapActivity;
 import com.exsample.maria.mobi2.mvp.view.MapView;
 import com.firebase.ui.auth.IdpResponse;
 
@@ -18,7 +18,7 @@ import com.firebase.ui.auth.IdpResponse;
  */
 
 @InjectViewState
-public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.AuthManagerWatcher {
+public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.SignOutListener {
 
     private static final int SIGN_IN = 11;
 
@@ -37,25 +37,20 @@ public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.A
     }
 
     @Override
-    public void signInSuccessful() {
-
-    }
-
-    @Override
     public void signOutSuccessful() {
         sayHi(R.string.hello_world);
     }
 
-    public void signOutBtnPressed(MapActivity activity) {
-        signOut(activity);
+    public void signOutBtnPressed(Context context) {
+        signOut(context);
     }
 
-    private void signOut(final MapActivity activity) {
-        (new AuthManager(this)).signOut(activity);
+    private void signOut(final Context context) {
+        (new AuthManager(this)).signOut(context);
     }
 
-    public void signInBtnPressed(MapActivity activity) {
-        signOut(activity);
+    public void signInBtnPressed(Context context) {
+        signOut(context);
         getViewState().startAuthActivity(SIGN_IN);
     }
 
