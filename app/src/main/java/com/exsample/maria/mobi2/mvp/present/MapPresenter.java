@@ -20,7 +20,7 @@ import com.firebase.ui.auth.IdpResponse;
 @InjectViewState
 public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.SignOutListener {
 
-    private static final int SIGN_IN = 11;
+    private static final int SIGN_IN = 1;
 
     private void sayHi(int resGreeting) {
         AuthManager manager = new AuthManager(this);

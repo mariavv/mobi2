@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menugroup" >
+        <item
+            android:id="@+id/photoFromGalary"
+            android:icon="@drawable/profile_rectangle"
+            android:title="@string/menu_photo_fromGalary"/>
+        <item
+            android:id="@+id/photoFromCamera"
+            android:title="@string/menu_photo_fromCamera"/>
+    </group>
+</menu>

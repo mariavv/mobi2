@@ -1,6 +1,7 @@
 package com.exsample.maria.mobi2.mvp.view;
 
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.view.View;
 
 import com.arellomobile.mvp.MvpView;
 
@@ -17,5 +18,9 @@ public interface ProfileView extends MvpView {
 
     void close();
 
-    void showPopupMenu();
+    void showPhotoPopupMenu(View v);
+
+    void getFromGalary(final int reguestCode);
+
+    void setImage(Bitmap img_path);
 }

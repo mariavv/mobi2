@@ -2,11 +2,15 @@ package com.exsample.maria.mobi2.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +53,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         changePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onChangePhotoBtnPressed();
+                presenter.onChangePhotoBtnPressed(v);
             }
         });
 
@@ -88,7 +92,41 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     }
 
     @Override
-    public void showPopupMenu() {
-        //PopupMenu popup = new PopupMenu(this, )
+    public void showPhotoPopupMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.photo_popup_menu);
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.photoFromGalary:
+                        presenter.onMenuItemPhotoFromGalaryPressed();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popup.show();
+    }
+
+    @Override
+    public void getFromGalary(final int reguestCode) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType("image/*");
+        startActivityForResult(intent, reguestCode);
+    }
+
+    @Override
+    public void setImage(Bitmap img_path) {
+        ImageView img = findViewById(R.id.photoIv);
+        img.setImageBitmap(img_path);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        presenter.activityResult(this, requestCode, resultCode, data);
     }
 }

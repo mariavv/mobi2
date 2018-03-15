@@ -25,4 +25,6 @@
     <string name="not_valid">Не все поля корректны</string>
     <string name="db_users_table">users</string>
     <string name="profile_change_photo">Сменить фотографию</string>
+    <string name="menu_photo_fromGalary">Из галереи</string>
+    <string name="menu_photo_fromCamera">С камеры</string>
 </resources>
