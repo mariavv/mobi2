@@ -3,6 +3,7 @@ package com.exsample.maria.mobi2.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Gravity;
@@ -103,6 +104,9 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
                     case R.id.photoFromGalary:
                         presenter.onMenuItemPhotoFromGalaryPressed();
                         return true;
+                    case R.id.photoFromCamera:
+                        presenter.onMenuItemPhotoFromCameraPressed();
+                        return true;
                     default:
                         return false;
                 }
@@ -118,10 +122,31 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         startActivityForResult(intent, reguestCode);
     }
 
+    private ImageView getPhotoView() {
+        return findViewById(R.id.photoIv);
+    }
+
     @Override
     public void setImage(Bitmap img_path) {
-        ImageView img = findViewById(R.id.photoIv);
+        ImageView img = getPhotoView();
         img.setImageBitmap(img_path);
+    }
+
+    @Override
+    public void setImage(Uri uri) {
+        ImageView img = getPhotoView();
+        img.setImageURI(uri);
+    }
+
+    @Override
+    public void getFromCamera(int photoCameraRequest) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        presenter.onIntentGetFromCameraCreated(intent.resolveActivity(getPackageManager()), intent);
+    }
+
+    @Override
+    public void startCameraActivity(Intent intent, int photoCameraRequest) {
+        startActivityForResult(intent, photoCameraRequest);
     }
 
     @Override
