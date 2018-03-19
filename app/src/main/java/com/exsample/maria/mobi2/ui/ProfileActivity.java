@@ -6,11 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,18 +21,13 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.bumptech.glide.Glide;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.ProfilePresenter;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
 import com.exsample.maria.mobi2.tools.BlurBuilder;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 
-import static android.support.v4.content.FileProvider.getUriForFile;
 
 public class ProfileActivity extends MvpAppCompatActivity implements ProfileView {
 
@@ -140,13 +136,14 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void getFromGalary(final int reguestCode) {
-        /*File imagePath = new File(this.getFilesDir(), "image");
+        File imagePath = new File(/*this.getFilesDir()*/Environment.getExternalStorageDirectory(), "image");
         File newFile = new File(imagePath, "colorful_houses.jpg");
-        Uri uri = getUriForFile(this, "com.mydomain.fileprovider", newFile);
-        setImage(uri);*/
+        Uri uri = FileProvider.getUriForFile(this, "com.mydomain.fileprovider", newFile);
 
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType("image/*");
-        startActivityForResult(intent, reguestCode);
+        setImage(uri);
+
+        //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType("image/*");
+        //startActivityForResult(intent, reguestCode);
     }
 
     private void onPhotoChaged() {
