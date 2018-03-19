@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.BitmapFactory;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ImageView;
@@ -77,8 +77,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     }
 
     @Override
-    public void onPhotoDownload(Uri uri) {
-        getViewState().setImage(uri);
+    public void onPhotoDownload(byte[] bytes) {
+        getViewState().setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
     }
 
     public void onChangePhotoBtnPressed(View v) {

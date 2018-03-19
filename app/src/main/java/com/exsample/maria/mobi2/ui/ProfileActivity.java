@@ -57,7 +57,6 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
         presenter.onActivityCreate(this);
 
-
         initViews();
 
 

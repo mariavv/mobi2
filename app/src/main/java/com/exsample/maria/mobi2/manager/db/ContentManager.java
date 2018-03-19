@@ -1,6 +1,7 @@
 package com.exsample.maria.mobi2.manager.db;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ class ContentManager {
     private final Listener listener;
 
     public interface Listener {
-        void onPhotoDownload(Uri uri);
+        void onPhotoDownload(byte[] bytes);
     }
 
     ContentManager(Listener listener) {
@@ -53,15 +54,12 @@ class ContentManager {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-
             }
         });
     }
@@ -74,47 +72,14 @@ class ContentManager {
         //StorageReference httpsReference =
         //        storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/b/bucket/o/images%20photo.jpg");
 
-        storageRef.child("house.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageRef.child("house.jpg").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                listener.onPhotoDownload(uri);
+            public void onSuccess(byte[] bytes) {
+                listener.onPhotoDownload(bytes);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-
-
-
-
-
-
-        File localFile = null;
-        try {
-            localFile = File.createTempFile("image", "jpg");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StorageReference islandRef = storageRef.child("house.jpg");
-        islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                // Local temp file has been created
-                long inArr = taskSnapshot.getBytesTransferred();
-                byte[] outArr = new byte[inArr.length];
-                for (int i=0; i<inArr.length; i++) {
-                    outArr[i] = (byte)(inArr[i] - 128);
-                }
-                listener.onPhotoDownload(taskSnapshot);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
             }
         });
     }

@@ -22,7 +22,7 @@ public class DbManager implements ContentManager.Listener {
 
         void onError(String error);
 
-        void onPhotoDownload(Uri uri);
+        void onPhotoDownload(byte[] bytes);
     }
 
     public DbManager(Listener listener) {
@@ -65,12 +65,12 @@ public class DbManager implements ContentManager.Listener {
                         listener.onError(databaseError.getMessage());
                     }
                 });
-        
+
         (new ContentManager(this)).downloadPhoto();
     }
-    
+
     @Override
-    public void onPhotoDownload(Uri uri) {
-listener.onPhotoDownload(uri);
+    public void onPhotoDownload(byte[] bytes) {
+        listener.onPhotoDownload(bytes);
     }
 }
