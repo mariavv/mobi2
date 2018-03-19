@@ -96,14 +96,14 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.regBtnPressed(edGetText(emailEd), edGetText(passEd));
+                presenter.regBtnPressed(AuthActivity.this, edGetText(emailEd), edGetText(passEd));
             }
         });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.loginBtnPressed(edGetText(emailEd), edGetText(passEd));
+                presenter.loginBtnPressed(AuthActivity.this, edGetText(emailEd), edGetText(passEd));
             }
         });
     }
@@ -135,7 +135,8 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
         // Высота строки состояния
         int stateBarHeight = 0;
-        int resourceId = getResources().getIdentifier(getString(R.string.status_bar_height), getString(R.string.dimen), getString(R.string.android));
+        int resourceId = getResources().getIdentifier(
+                getString(R.string.status_bar_height), getString(R.string.dimen), getString(R.string.android));
         if (resourceId > 0) {
             stateBarHeight = getResources().getDimensionPixelSize(resourceId);
         }

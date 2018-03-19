@@ -38,7 +38,7 @@
     <dimen name="profile_phone_textSize">20sp</dimen>
     <dimen name="profile_phone_lineSpacingExtra">4sp</dimen>
     <dimen name="profile_l_email_lineSpacingExtra">4sp</dimen>
-    <dimen name="profile_pers_layout_marginStart">46dp</dimen>
+    <dimen name="profile_pers_layout_margin_horizontal">46dp</dimen>
     <dimen name="profile_pers_marginTop">32dp</dimen>
     <item name="profile_headText_letterSpacing" type="dimen" format="float">0.01</item>
     <item name="profile_email_letterSpacing" type="dimen" format="float">0.02</item>

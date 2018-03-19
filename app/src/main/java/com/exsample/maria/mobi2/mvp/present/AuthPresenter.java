@@ -1,6 +1,7 @@
 package com.exsample.maria.mobi2.mvp.present;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -17,7 +18,8 @@ public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager
 
     private static final int MIN_LENGTH = 8;
 
-    public void regBtnPressed(final String email, final String pass) {
+    public void regBtnPressed(Context context, final String email, final String pass) {
+        signOut(context);
         (new AuthManager(this)).register(email, pass);
     }
 
@@ -25,8 +27,13 @@ public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager
         (new AuthManager(this)).signIn(email, pass);
     }
 
-    public void loginBtnPressed(String email, String pass) {
+    public void loginBtnPressed(Context context, String email, String pass) {
+        signOut(context);
         login(email, pass);
+    }
+
+    private void signOut(Context context) {
+        //(new AuthManager(this)).signOut(context);
     }
 
     public void textChanged(int emailLen, int loginLen) {

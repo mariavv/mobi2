@@ -56,13 +56,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="@dimen/profile_pers_layout_marginStart"
-            android:layout_marginEnd="@dimen/profile_pers_layout_marginStart" >
+            android:layout_marginTop="@dimen/profile_pers_marginTop"
+            android:layout_marginStart="@dimen/profile_pers_layout_margin_horizontal"
+            android:layout_marginEnd="@dimen/profile_pers_layout_margin_horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/profile_pers_marginTop"
                 android:fontFamily="sans-serif"
                 android:lineSpacingExtra="@dimen/profile_pers_lineSpacingExtra"
                 android:text="@string/profile_pers"
@@ -137,7 +137,7 @@
 
             <Button
                 android:id="@+id/saveBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/profile_pers_marginTop"
                 android:background="@color/colorProfileText"

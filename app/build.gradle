@@ -55,6 +55,8 @@ dependencies {
 
     // не компилится с 26sdk
     //compile 'com.theartofdev.edmodo:android-image-cropper:2.5.0'
+
+    compile "ru.tinkoff.decoro:decoro:1.1.1"
 }
 
 apply plugin: 'com.google.gms.google-services'

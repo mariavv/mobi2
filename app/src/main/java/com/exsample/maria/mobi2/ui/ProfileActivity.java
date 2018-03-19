@@ -28,6 +28,12 @@ import com.exsample.maria.mobi2.tools.BlurBuilder;
 
 import java.io.File;
 
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
+
 
 public class ProfileActivity extends MvpAppCompatActivity implements ProfileView {
 
@@ -54,11 +60,18 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         presenter.onActivityCreate(this);
 
         initViews();
-
+        //addPhoneEdMask();
 
         ImageView resultImage = findViewById(R.id.blurPhotoIv);
-        Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
+        Bitmap resultBmp = BlurBuilder.blur(
+                this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
         resultImage.setImageBitmap(resultBmp);
+    }
+
+    private void addPhoneEdMask() {
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("+_ (___) ___ ____");
+        FormatWatcher formatWatcher = new MaskFormatWatcher(MaskImpl.createTerminated(slots));
+        formatWatcher.installOn(phoneNumberEd);
     }
 
     private void initViews() {
@@ -79,9 +92,12 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onSaveBtnPressed(ProfileActivity.this, emailEd.getText().toString(),
+                presenter.onSaveBtnPressed(
+                        ProfileActivity.this,
+                        emailEd.getText().toString(),
                         displayNameEd.getText().toString(),
-                        phoneNumberEd.getText().toString());
+                        phoneNumberEd.getText().toString()
+                );
             }
         });
     }
@@ -114,7 +130,6 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     public void showPhotoPopupMenu(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.photo_popup_menu);
-        Button changePhotoBtn = findViewById(R.id.changePhotoBtn);
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override

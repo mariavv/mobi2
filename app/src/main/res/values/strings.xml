@@ -10,6 +10,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="sign_in">Sign In</string>
     <string name="db_users_table">users</string>
+    <string name="profileBtn_text">Профиль</string>
 
     <string name="auth_sova">sova</string>
     <string name="auth_activity_name">Авторизация</string>
