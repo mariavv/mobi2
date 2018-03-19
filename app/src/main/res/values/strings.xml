@@ -1,30 +1,36 @@
 <resources>
+    <string name="status_bar_height">status_bar_height</string>
+    <string name="dimen">dimen</string>
+    <string name="android">android</string>
+
     <string name="app_name">Карты</string>
     <string name="hello_world">Hello World!</string>
     <string name="signed_out">You sign out</string>
     <string name="hello_user">Hello, %s</string>
     <string name="sign_out">Sign Out</string>
     <string name="sign_in">Sign In</string>
+    <string name="db_users_table">users</string>
+
+    <string name="auth_sova">sova</string>
     <string name="auth_activity_name">Авторизация</string>
-    <string name="sova">sova</string>
     <string name="auth_btn_text_not_fill">Не все поля заполнены</string>
     <string name="auth_btn_text_login">Войти</string>
     <string name="auth_btn_reg">Регистрация</string>
     <string name="auth_ed_email_hint">Email</string>
     <string name="auth_ed_pass_hint">Пароль</string>
     <string name="auth_fill_screen">fill_screen</string>
-    <string name="status_bar_height">status_bar_height</string>
-    <string name="dimen">dimen</string>
-    <string name="android">android</string>
-    <string name="profile_photo">photo</string>
-    <string name="profile_headText">Михаил Дерябин</string>
-    <string name="profile_BtnSave_text">Сохранить</string>
-    <string name="profileBtn_text">Профиль</string>
-    <string name="profile_activity_name">Профиль</string>
-    <string name="saved">Сохранено</string>
-    <string name="not_valid">Не все поля корректны</string>
-    <string name="db_users_table">users</string>
+
+    <string name="profile_not_valid">Не все поля корректны</string>
+    <string name="profile_saved">Сохранено</string>
+    <string name="profile_menu_photo_fromGalary">Из галереи</string>
+    <string name="profile_menu_photo_fromCamera">С камеры</string>
     <string name="profile_change_photo">Сменить фотографию</string>
-    <string name="menu_photo_fromGalary">Из галереи</string>
-    <string name="menu_photo_fromCamera">С камеры</string>
+    <string name="profile_photo">photo</string>
+    <string name="profile_BtnSave_text">Сохранить</string>
+    <string name="profile_activity_name">Профиль</string>
+    <string name="profile_pers">Личные данные</string>
+    <string name="profile_l_name">Имя</string>
+    <string name="profile_l_phone">Телефон</string>
+    <string name="profile_l_email">Email</string>
+
 </resources>

@@ -50,9 +50,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
             //AuthManager manager = new AuthManager(this);
             //manager.updateEmail(email);
-            getViewState().say(R.string.saved);
+            getViewState().say(R.string.profile_saved);
         } else {
-            getViewState().say(R.string.not_valid);
+            getViewState().say(R.string.profile_not_valid);
         }
     }
 

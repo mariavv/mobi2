@@ -114,6 +114,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     public void showPhotoPopupMenu(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.photo_popup_menu);
+        Button changePhotoBtn = findViewById(R.id.changePhotoBtn);
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -136,7 +137,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void getFromGalary(final int reguestCode) {
-        File imagePath = new File(/*this.getFilesDir()*/Environment.getExternalStorageDirectory(), "image");
+        File imagePath = new File(Environment.getExternalStorageDirectory(), "image");
         File newFile = new File(imagePath, "colorful_houses.jpg");
         Uri uri = FileProvider.getUriForFile(this, "com.mydomain.fileprovider", newFile);
 

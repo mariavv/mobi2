@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:theme="@style/ProfileTheme"
     tools:context=".ui.ProfileActivity">
 
@@ -17,184 +17,139 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/profile_photo_h"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/profile_img_2"
             android:contentDescription="@string/profile_photo"
-            />
+            tools:src="@drawable/profile_img_2" />
 
         <ImageView
             android:id="@+id/blurPhotoIv"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/profile_photo_h"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/profile_img_2"
             android:contentDescription="@string/profile_photo"
-            />
+            tools:src="@drawable/profile_img_2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile_headText"
-            android:textSize="@dimen/profile_head_textSize"
-            android:textColor="@color/colorProfileHeadText"
-            android:letterSpacing="@dimen/profile_headText_letterSpacing"
-            android:lineSpacingExtra="@dimen/profile_headText_lineSpacingExtra"
             android:layout_gravity="center_horizontal"
             android:focusable="true"
-            />
+            android:letterSpacing="@dimen/profile_headText_letterSpacing"
+            android:lineSpacingExtra="@dimen/profile_headText_lineSpacingExtra"
+            android:textColor="@color/colorProfileText"
+            android:textSize="@dimen/profile_head_textSize"
+            tools:text="Михаил Дерябин" />
 
         <Button
             android:id="@+id/changePhotoBtn"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@android:color/white"
-            android:textSize="@dimen/profile_photoBtn_textSize"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/colorProfilePhotoBtn"
-            android:lineSpacingExtra="@dimen/profile_photoBtn_lineSpacingExtra"
+            android:layout_height="@dimen/profile_changePhotoBtn_layout_height"
             android:layout_gravity="center_horizontal"
-            tools:text="@string/profile_change_photo"
-            />
-
-        <!--в разработке-->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:background="@android:color/white"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="2sp"
-            tools:text="Личные данные"
-            />
+            android:lineSpacingExtra="@dimen/profile_photoBtn_lineSpacingExtra"
+            android:text="@string/profile_change_photo"
+            android:textColor="@color/colorProfilePhotoBtn"
+            android:textSize="@dimen/profile_photoBtn_textSize"
+            android:textStyle="normal" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="4sp"
-            tools:text="Имя"
-            />
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/profile_pers_layout_marginStart"
+            android:layout_marginEnd="@dimen/profile_pers_layout_marginStart" >
 
-        <TextView
-            android:id="@+id/displayNameEd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#4c4c4c"
-            android:letterSpacing="0.02"
-            android:lineSpacingExtra="4sp"
-            tools:text="Михаил Дерябин"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_pers_marginTop"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="@dimen/profile_pers_lineSpacingExtra"
+                android:text="@string/profile_pers"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_pers_textSize"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="4sp"
-            tools:text="Телефон"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_pers_marginTop"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="@dimen/profile_l_name_lineSpacingExtra"
+                android:text="@string/profile_l_name"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_l_name_textSize"
+                android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/phoneNumberEd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#4c4c4c"
-            android:letterSpacing="0.02"
-            android:lineSpacingExtra="4sp"
-            tools:text="+7 917 678 9000"
-            />
+            <TextView
+                android:id="@+id/displayNameEd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="@dimen/profile_name_letterSpacing"
+                android:lineSpacingExtra="@dimen/profile_name_lineSpacingExtra"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_name_textSize"
+                tools:text="Михаил Дерябин" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="4sp"
-            tools:text="Email"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_pers_marginTop"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="@dimen/profile_l_phone_lineSpacingExtra"
+                android:text="@string/profile_l_phone"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_l_phone_textSize"
+                android:textStyle="normal" />
 
-        <EditText
-            android:id="@+id/emailEd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#4c4c4c"
-            android:letterSpacing="0.02"
-            android:lineSpacingExtra="4sp"
-            tools:text="derybin@gmail.com"
-            android:inputType="textEmailAddress" />
+            <TextView
+                android:id="@+id/phoneNumberEd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:letterSpacing="@dimen/profile_phone_letterSpacing"
+                android:lineSpacingExtra="@dimen/profile_phone_lineSpacingExtra"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_phone_textSize"
+                tools:text="+7 917 678 9000" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="10sp"
-            tools:text="Сменить пароль"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_pers_marginTop"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="@dimen/profile_l_email_lineSpacingExtra"
+                android:text="@string/profile_l_email"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_l_email_textSize"
+                android:textStyle="normal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="16sp"
-            tools:text="Старый пароль"
-            />
+            <EditText
+                android:id="@+id/emailEd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:letterSpacing="@dimen/profile_email_letterSpacing"
+                android:lineSpacingExtra="@dimen/profile_email_lineSpacingExtra"
+                android:textColor="@color/colorProfileText"
+                android:textSize="@dimen/profile_email_textSize"
+                tools:ignore="LabelFor"
+                tools:text="derybin@gmail.com" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="16sp"
-            tools:text="Новый пароль "
-            />
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_pers_marginTop"
+                android:background="@color/colorProfileText"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="@dimen/profile_saveBtn_lineSpacingExtra"
+                android:text="@string/profile_BtnSave_text"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/profile_saveBtn_textSize"
+                android:textStyle="normal" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#4c4c4c"
-            android:lineSpacingExtra="16sp"
-            tools:text="Повторить "
-            />
-
-        <Button
-            android:id="@+id/saveBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#4c4c4c"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="normal"
-            android:textColor="#ffffff"
-            android:lineSpacingExtra="8sp"
-            android:gravity="center_horizontal"
-            android:text="@string/profile_BtnSave_text"
-            />
-
-
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

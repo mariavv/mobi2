@@ -3,11 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorMainFon">#eddede</color>
+
     <color name="colorAuth">#252423</color>
     <color name="colorAuthText">#4c4c4c</color>
-    <color name="colorMainFon">#eddede</color>
     <color name="colorAuthLoginBtnGreen">#7bcb57</color>
     <color name="colorAuthLoginBtn">#4c4c4c</color>
-    <color name="colorProfileHeadText">#4c4c4c</color>
+
+    <color name="colorProfileText">#4c4c4c</color>
     <color name="colorProfilePhotoBtn">#a0a0a0</color>
+    <color name="colorProfileText">#4c4c4c</color>
 </resources>
