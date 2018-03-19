@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Patterns;
 import android.view.View;
 
@@ -16,6 +17,11 @@ import com.exsample.maria.mobi2.manager.DbManager;
 import com.exsample.maria.mobi2.manager.ImageProvider;
 import com.exsample.maria.mobi2.mvp.model.User;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
+
+import java.io.File;
+
+import static android.support.v4.content.FileProvider.getUriForFile;
+import static java.security.AccessController.getContext;
 
 /**
  * Created by maria on 01.03.2018

@@ -3,12 +3,14 @@ package com.exsample.maria.mobi2.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +23,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.ProfilePresenter;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
+import com.exsample.maria.mobi2.tools.BlurBuilder;
+
+import java.io.File;
+
+import static android.support.v4.content.FileProvider.getUriForFile;
 
 public class ProfileActivity extends MvpAppCompatActivity implements ProfileView {
 
@@ -40,8 +47,15 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        //        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         presenter.onActivityCreate(this);
         initViews();
+
+        ImageView resultImage = findViewById(R.id.blurPhotoIv);
+        Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
+        resultImage.setImageBitmap(resultBmp);
     }
 
     private void initViews() {
@@ -118,6 +132,11 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void getFromGalary(final int reguestCode) {
+        /*File imagePath = new File(this.getFilesDir(), "image");
+        File newFile = new File(imagePath, "colorful_houses.jpg");
+        Uri uri = getUriForFile(this, "com.mydomain.fileprovider", newFile);
+        setImage(uri);*/
+
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType("image/*");
         startActivityForResult(intent, reguestCode);
     }
