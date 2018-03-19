@@ -46,9 +46,12 @@ dependencies {
     compile "com.arello-mobile:moxy-app-compat:$moxy_version"
 
     ext.firebaseui_version = '3.2.1'
-    compile 'com.google.firebase:firebase-core:11.8.0'
+    ext.firebase_version = '11.8.0'
+    compile "com.google.firebase:firebase-core:$firebase_version"
     compile "com.firebaseui:firebase-ui-auth:$firebaseui_version"
     implementation "com.firebaseui:firebase-ui-database:$firebaseui_version"
+    implementation "com.firebaseui:firebase-ui-storage:$firebaseui_version"
+    compile "com.google.firebase:firebase-storage:$firebase_version"
 
     // не компилится с 26sdk
     //compile 'com.theartofdev.edmodo:android-image-cropper:2.5.0'

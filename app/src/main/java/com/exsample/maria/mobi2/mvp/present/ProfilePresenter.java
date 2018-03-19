@@ -8,20 +8,16 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.manager.AuthManager;
-import com.exsample.maria.mobi2.manager.DbManager;
+import com.exsample.maria.mobi2.manager.db.DbManager;
 import com.exsample.maria.mobi2.manager.ImageProvider;
 import com.exsample.maria.mobi2.mvp.model.User;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
-
-import java.io.File;
-
-import static android.support.v4.content.FileProvider.getUriForFile;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by maria on 01.03.2018
@@ -40,7 +36,6 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         }
         //AuthManager manager = new AuthManager(this);
         //getViewState().fillFields(manager.getEmail(), manager.getDisplayName(), manager.getPhoneNumber());
-
 
         (new DbManager(this))
                 .read(context.getString(R.string.db_users_table), (new AuthManager(this)).getUserId(), User.class);
@@ -81,6 +76,11 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         getViewState().say(error);
     }
 
+    @Override
+    public void onPhotoDownload(Uri uri) {
+        getViewState().setImage(uri);
+    }
+
     public void onChangePhotoBtnPressed(View v) {
         getViewState().showPhotoPopupMenu(v);
     }
@@ -116,5 +116,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         if (resolveActivity != null) {
             getViewState().startCameraActivity(intent, PHOTO_CAMERA_REQUEST);
         }
+    }
+
+    public void onPhotoChaged(ImageView photoIv) {
+        (new DbManager(this)).uploadPhoto(photoIv);
     }
 }

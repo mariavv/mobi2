@@ -20,10 +20,14 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.bumptech.glide.Glide;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.ProfilePresenter;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
 import com.exsample.maria.mobi2.tools.BlurBuilder;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 
@@ -31,6 +35,7 @@ import static android.support.v4.content.FileProvider.getUriForFile;
 
 public class ProfileActivity extends MvpAppCompatActivity implements ProfileView {
 
+    private ImageView photoIv;
     private EditText emailEd;
     private TextView displayNameEd;
     private TextView phoneNumberEd;
@@ -51,7 +56,10 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         //        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         presenter.onActivityCreate(this);
+
+
         initViews();
+
 
         ImageView resultImage = findViewById(R.id.blurPhotoIv);
         Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
@@ -59,6 +67,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     }
 
     private void initViews() {
+        photoIv = findViewById(R.id.photoIv);
         emailEd = findViewById(R.id.emailEd);
         displayNameEd = findViewById(R.id.displayNameEd);
         phoneNumberEd = findViewById(R.id.phoneNumberEd);
@@ -141,20 +150,20 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         startActivityForResult(intent, reguestCode);
     }
 
-    private ImageView getPhotoView() {
-        return findViewById(R.id.photoIv);
+    private void onPhotoChaged() {
+        presenter.onPhotoChaged(photoIv);
     }
 
     @Override
     public void setImage(Bitmap img_path) {
-        ImageView img = getPhotoView();
-        img.setImageBitmap(img_path);
+        photoIv.setImageBitmap(img_path);
+        onPhotoChaged();
     }
 
     @Override
     public void setImage(Uri uri) {
-        ImageView img = getPhotoView();
-        img.setImageURI(uri);
+        photoIv.setImageURI(uri);
+        onPhotoChaged();
     }
 
     @Override

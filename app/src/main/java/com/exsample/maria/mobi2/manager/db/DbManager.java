@@ -1,4 +1,7 @@
-package com.exsample.maria.mobi2.manager;
+package com.exsample.maria.mobi2.manager.db;
+
+import android.net.Uri;
+import android.widget.ImageView;
 
 import com.exsample.maria.mobi2.mvp.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -10,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by maria on 14.03.2018
  */
 
-public class DbManager {
+public class DbManager implements ContentManager.Listener {
 
     private final Listener listener;
 
@@ -18,6 +21,8 @@ public class DbManager {
         void onDataChange(Object value);
 
         void onError(String error);
+
+        void onPhotoDownload(Uri uri);
     }
 
     public DbManager(Listener listener) {
@@ -29,6 +34,12 @@ public class DbManager {
                 .child(table)
                 .child(/*uId*/"2")
                 .setValue(value);
+    }
+
+    public void uploadPhoto(ImageView photo) {
+
+        ContentManager cm = new ContentManager(this);
+        cm.uploadPhoto(photo);
     }
 
     public void read(String table, String uId, final Class clazz) {
@@ -54,5 +65,12 @@ public class DbManager {
                         listener.onError(databaseError.getMessage());
                     }
                 });
+        
+        (new ContentManager(this)).downloadPhoto();
+    }
+    
+    @Override
+    public void onPhotoDownload(Uri uri) {
+listener.onPhotoDownload(uri);
     }
 }
