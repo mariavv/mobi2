@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/profile_pers_marginTop"
+            android:layout_marginBottom="@dimen/profile_pers_marginTop"
             android:layout_marginStart="@dimen/profile_pers_layout_margin_horizontal"
             android:layout_marginEnd="@dimen/profile_pers_layout_margin_horizontal" >
 
@@ -81,7 +82,7 @@
                 android:textSize="@dimen/profile_l_name_textSize"
                 android:textStyle="normal" />
 
-            <TextView
+            <EditText
                 android:id="@+id/displayNameEd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +103,7 @@
                 android:textSize="@dimen/profile_l_phone_textSize"
                 android:textStyle="normal" />
 
-            <TextView
+            <EditText
                 android:id="@+id/phoneNumberEd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

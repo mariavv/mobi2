@@ -14,7 +14,7 @@ import com.exsample.maria.mobi2.mvp.view.AuthView;
  */
 
 @InjectViewState
-public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager.SignInListener {
+public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager.Listener{
 
     private static final int MIN_LENGTH = 8;
 
@@ -33,7 +33,7 @@ public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager
     }
 
     private void signOut(Context context) {
-        //(new AuthManager(this)).signOut(context);
+        (new AuthManager(this)).signOut(context);
     }
 
     public void textChanged(int emailLen, int loginLen) {
@@ -62,5 +62,10 @@ public class AuthPresenter extends MvpPresenter<AuthView> implements AuthManager
     @Override
     public void signInSuccessful() {
         getViewState().close(Activity.RESULT_OK);
+    }
+
+    @Override
+    public void signOutSuccessful() {
+        // do nothing
     }
 }

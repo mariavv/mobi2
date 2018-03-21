@@ -33,8 +33,8 @@ class ContentManager {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageRef = storage.getReference();
-        StorageReference imagesRef = storageRef.child("images");
-        StorageReference spaceRef = storageRef.child("images/photo.jpg");
+        StorageReference imagesRef = storageRef.child("house2.jpg");
+        //StorageReference spaceRef = storageRef.child("images/photo.jpg");
 
         photo.setDrawingCacheEnabled(true);
         photo.buildDrawingCache();
@@ -61,12 +61,15 @@ class ContentManager {
     void downloadPhoto() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        StorageReference pathReference = storageRef.child("house.jpg");
+        StorageReference pathReference = storageRef.child("house2.jpg");
         //StorageReference gsReference = storage.getReferenceFromUrl("gs://bucket/images/photo.jpg");
         //StorageReference httpsReference =
         //        storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/b/bucket/o/images%20photo.jpg");
 
-        storageRef.child("house.jpg").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        storageRef
+                .child("house.jpg")
+                .getBytes(Long.MAX_VALUE)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 listener.onPhotoDownload(bytes);

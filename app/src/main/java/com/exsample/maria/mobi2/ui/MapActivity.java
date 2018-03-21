@@ -41,7 +41,7 @@ public class MapActivity extends MvpAppCompatActivity implements MapView {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.signInBtn:
-                        presenter.signInBtnPressed(MapActivity.this);
+                        presenter.signInBtnPressed();
                         break;
                     case R.id.signOutBtn:
                         presenter.signOutBtnPressed(MapActivity.this);
@@ -56,6 +56,12 @@ public class MapActivity extends MvpAppCompatActivity implements MapView {
         signInBtn.setOnClickListener(onClickListener);
         signOutBtn.setOnClickListener(onClickListener);
         profileBtn.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume(R.string.hello_world);
     }
 
     @Override

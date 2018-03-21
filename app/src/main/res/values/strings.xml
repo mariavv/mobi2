@@ -33,5 +33,6 @@
     <string name="profile_l_name">Имя</string>
     <string name="profile_l_phone">Телефон</string>
     <string name="profile_l_email">Email</string>
+    <string name="user_null">user null</string>
 
 </resources>

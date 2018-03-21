@@ -25,29 +25,28 @@ import com.exsample.maria.mobi2.mvp.view.ProfileView;
 
 @InjectViewState
 public class ProfilePresenter extends MvpPresenter<ProfileView>
-        implements AuthManager.Listener, DbManager.Listener, ImageProvider.Listener {
+        implements  DbManager.Listener, ImageProvider.Listener {
 
-    private static final int PHOTO_GALARY_REQUEST = 1;
-    private static final int PHOTO_CAMERA_REQUEST = 2;
+    private static final int GALARY_REQUEST = 1;
+    private static final int CAMERA_REQUEST = 2;
 
     public void onActivityCreate(Context context) {
-        if (!(new AuthManager(this).userExists())) {
+        if (!AuthManager.userExists()) {
             getViewState().close();
         }
         //AuthManager manager = new AuthManager(this);
         //getViewState().fillFields(manager.getEmail(), manager.getDisplayName(), manager.getPhoneNumber());
 
         (new DbManager(this))
-                .read(context.getString(R.string.db_users_table), (new AuthManager(this)).getUserId(), User.class);
+                .read(context.getString(R.string.db_users_table), AuthManager.getUserId(), User.class);
     }
 
     public void onSaveBtnPressed(Context context, String email, String displayName, String phoneNumber) {
-        if ((Patterns.EMAIL_ADDRESS.matcher(email).matches()) /*&& (displayName.length() > 0)*/) {
+        if ((Patterns.EMAIL_ADDRESS.matcher(email).matches()) && (displayName.length() > 0)) {
             (new DbManager(this))
-                    .write(context.getString(R.string.db_users_table),
-                            (new AuthManager(this)).getUserId(),
-                            (new User(email, displayName, phoneNumber)));
+                    .write(context.getString(R.string.db_users_table), AuthManager.getUserId(), (new User(email, displayName, phoneNumber)));
 
+            //TODO
             //AuthManager manager = new AuthManager(this);
             //manager.updateEmail(email);
             getViewState().say(R.string.profile_saved);
@@ -57,18 +56,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     }
 
     @Override
-    public void error(String message) {
-        getViewState().say(message);
-    }
-
-    @Override
-    public void onDataChange(Object value) {
-        User user = (User) value;
-        if (user != null) {
-            //getViewState().say(user.getEmail());
-        } else {
-            //getViewState().say("user null");
-        }
+    public void onError(int error) {
+        getViewState().say(error);
     }
 
     @Override
@@ -81,12 +70,17 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         getViewState().setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
     }
 
+    @Override
+    public void onDataLoad(User user) {
+        getViewState().fillFields(user.getEmail(), user.getName(), user.getPhone());
+    }
+
     public void onChangePhotoBtnPressed(View v) {
         getViewState().showPhotoPopupMenu(v);
     }
 
     public void onMenuItemPhotoFromGalaryPressed() {
-        getViewState().getFromGalary(PHOTO_GALARY_REQUEST);
+        getViewState().getFromGalary(GALARY_REQUEST);
     }
 
     public void activityResult(Context context, int requestCode, int resultCode, Intent data) {
@@ -94,12 +88,14 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
             return;
         }
 
-        if (requestCode == PHOTO_GALARY_REQUEST) {
+        if (requestCode == GALARY_REQUEST) {
             (new ImageProvider(this)).getBitmap(context, data);
             //getViewState().setImage(data.getData());
-        } else if (requestCode == PHOTO_CAMERA_REQUEST) {
+            getViewState().onPhotoChanged();
+        } else if (requestCode == CAMERA_REQUEST) {
             //TODO
             getViewState().setImage(data.getData());
+            getViewState().onPhotoChanged();
         }
     }
 
@@ -109,16 +105,16 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     }
 
     public void onMenuItemPhotoFromCameraPressed() {
-        getViewState().getFromCamera(PHOTO_CAMERA_REQUEST);
+        getViewState().getFromCamera(CAMERA_REQUEST);
     }
 
     public void onIntentGetFromCameraCreated(ComponentName resolveActivity, Intent intent) {
         if (resolveActivity != null) {
-            getViewState().startCameraActivity(intent, PHOTO_CAMERA_REQUEST);
+            getViewState().startCameraActivity(intent, CAMERA_REQUEST);
         }
     }
 
-    public void onPhotoChaged(ImageView photoIv) {
+    public void onPhotoChanged(ImageView photoIv) {
         (new DbManager(this)).uploadPhoto(photoIv);
     }
 }

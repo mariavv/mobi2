@@ -60,7 +60,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         presenter.onActivityCreate(this);
 
         initViews();
-        //addPhoneEdMask();
+        addPhoneEdMask();
 
         ImageView resultImage = findViewById(R.id.blurPhotoIv);
         Bitmap resultBmp = BlurBuilder.blur(
@@ -162,20 +162,18 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         //startActivityForResult(intent, reguestCode);
     }
 
-    private void onPhotoChaged() {
-        presenter.onPhotoChaged(photoIv);
+    public void onPhotoChanged() {
+        presenter.onPhotoChanged(photoIv);
     }
 
     @Override
     public void setImage(Bitmap img_path) {
         photoIv.setImageBitmap(img_path);
-        onPhotoChaged();
     }
 
     @Override
     public void setImage(Uri uri) {
         photoIv.setImageURI(uri);
-        onPhotoChaged();
     }
 
     @Override

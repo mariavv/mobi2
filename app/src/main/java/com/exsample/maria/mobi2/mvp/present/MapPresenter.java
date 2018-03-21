@@ -23,11 +23,12 @@ public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.S
     private static final int SIGN_IN = 1;
 
     private void sayHi(int resGreeting) {
-        AuthManager manager = new AuthManager(this);
-        if (manager.userExists()) {
-            getViewState().changeText(manager.getEmail());
+        if (AuthManager.userExists()) {
+            getViewState()
+                    .changeText((new AuthManager(this)).getEmail());
         } else {
-            getViewState().changeText(resGreeting);
+            getViewState()
+                    .changeText(resGreeting);
         }
     }
 
@@ -49,8 +50,7 @@ public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.S
         (new AuthManager(this)).signOut(context);
     }
 
-    public void signInBtnPressed(Context context) {
-        signOut(context);
+    public void signInBtnPressed() {
         getViewState().startAuthActivity(SIGN_IN);
     }
 
@@ -76,10 +76,14 @@ public class MapPresenter extends MvpPresenter<MapView> implements AuthManager.S
     }
 
     public void profileBtnPressed() {
-        if ((new AuthManager(this)).userExists()) {
+        if (AuthManager.userExists()) {
             getViewState().startProfileActivity();
         } else {
             getViewState().say("Вы не авторизованы");
         }
+    }
+
+    public void onResume(int resGreeting) {
+        sayHi(resGreeting);
     }
 }

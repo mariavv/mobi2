@@ -15,28 +15,27 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class AuthManager {
-    private Listener listener;
     private SignInListener signInListener;
     private SignOutListener signOutListener;
 
-    public interface Listener {
-        void error(String message);
+    public interface Listener extends SignInListener, SignOutListener {
     }
 
-    public interface SignInListener extends Listener {
+    public interface SignInListener {
         void signInSuccessful();
 
         void error(String message);
     }
 
-    public interface SignOutListener extends Listener {
+    public interface SignOutListener {
         void signOutSuccessful();
 
         void error(String message);
     }
 
     public AuthManager(Listener listener) {
-        this.listener = listener;
+        this.signInListener = listener;
+        this.signOutListener = listener;
     }
 
     public AuthManager(SignInListener signInListener) {
@@ -47,15 +46,15 @@ public class AuthManager {
         this.signOutListener = signOutListener;
     }
 
-    private FirebaseUser getCurrentUser() {
+    private static FirebaseUser getCurrentUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public boolean userExists() {
+    public static boolean userExists() {
         return getCurrentUser() != null;
     }
 
-    public String getUserId() {
+    public static String getUserId() {
         if (userExists()) {
             return getCurrentUser().getUid();
         } else {
@@ -74,7 +73,7 @@ public class AuthManager {
                                 signOutListener.signOutSuccessful();
                             } else {
                                 if (task.getException() != null) {
-                                    listener.error(task.getException().getMessage());
+                                    signOutListener.error(task.getException().getMessage());
                                 }
                             }
                         }
@@ -100,7 +99,7 @@ public class AuthManager {
 
     private void showError(Task<AuthResult> task) {
         if (task.getException() != null) {
-            listener.error(task.getException().getMessage());
+            signInListener.error(task.getException().getMessage());
         }
     }
 
