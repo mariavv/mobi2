@@ -18,19 +18,19 @@ public class AuthManager {
     private SignInListener signInListener;
     private SignOutListener signOutListener;
 
+    public interface AuthErrorListener {
+        void error(String message);
+    }
+
     public interface Listener extends SignInListener, SignOutListener {
     }
 
-    public interface SignInListener {
+    public interface SignInListener extends AuthErrorListener {
         void signInSuccessful();
-
-        void error(String message);
     }
 
-    public interface SignOutListener {
-        void signOutSuccessful();
-
-        void error(String message);
+    public interface SignOutListener  extends AuthErrorListener{
+        void signOutSuccessful();;
     }
 
     public AuthManager(Listener listener) {
