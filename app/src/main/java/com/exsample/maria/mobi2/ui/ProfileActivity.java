@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -35,10 +36,12 @@ import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 
-public class ProfileActivity extends MvpAppCompatActivity implements ProfileView {
+public class ProfileActivity extends MvpAppCompatActivity implements ProfileView, View.OnFocusChangeListener {
 
     private ImageView photoIv;
+    private TextInputLayout emailLayout;
     private EditText emailEd;
+    private TextInputLayout displayNameLayout;
     private TextView displayNameEd;
     private TextView phoneNumberEd;
 
@@ -60,12 +63,6 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         presenter.onActivityCreate(this);
 
         initViews();
-        addPhoneEdMask();
-
-        ImageView resultImage = findViewById(R.id.blurPhotoIv);
-        Bitmap resultBmp = BlurBuilder.blur(
-                this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
-        resultImage.setImageBitmap(resultBmp);
     }
 
     private void addPhoneEdMask() {
@@ -76,11 +73,21 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     private void initViews() {
         photoIv = findViewById(R.id.photoIv);
+
+        emailLayout = findViewById(R.id.emailLayout);
         emailEd = findViewById(R.id.emailEd);
+
+        displayNameLayout = findViewById(R.id.displayNameLayout);
         displayNameEd = findViewById(R.id.displayNameEd);
+
         phoneNumberEd = findViewById(R.id.phoneNumberEd);
+
         Button changePhotoBtn = findViewById(R.id.changePhotoBtn);
         Button saveBtn = findViewById(R.id.saveBtn);
+
+        setBlurImage();
+
+        addPhoneEdMask();
 
         changePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +107,13 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
                 );
             }
         });
+    }
+
+    private void setBlurImage() {
+        ImageView resultImage = findViewById(R.id.blurPhotoIv);
+        Bitmap resultBmp = BlurBuilder.blur(
+                this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
+        resultImage.setImageBitmap(resultBmp);
     }
 
     @Override
@@ -167,6 +181,12 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     }
 
     @Override
+    public void configEditFields() {
+        displayNameEd.setOnFocusChangeListener(this);
+        emailEd.setOnFocusChangeListener(this);
+    }
+
+    @Override
     public void setImage(Bitmap img_path) {
         photoIv.setImageBitmap(img_path);
     }
@@ -191,5 +211,22 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         presenter.activityResult(this, requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (v == displayNameEd && displayNameEd.getText().toString().isEmpty()) {
+            displayNameLayout.setErrorEnabled(true);
+            displayNameLayout.setError(getResources().getString(R.string.profile_user_name_error));
+            return;
+        } else {
+            displayNameLayout.setErrorEnabled(false);
+        }
+        if (v == emailEd && emailEd.getText().toString().isEmpty()) {
+            emailLayout.setErrorEnabled(true);
+            emailLayout.setError(getResources().getString(R.string.profile_user_name_error));
+        } else {
+            emailLayout.setErrorEnabled(false);
+        }
     }
 }

@@ -31,5 +31,6 @@
 
     <string name="user_null">user null</string>
     <string name="db_users_table">users</string>
+    <string name="profile_user_name_error">Поле не может быть пустым</string>
 
 </resources>

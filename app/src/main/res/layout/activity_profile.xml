@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/ProfileTheme"
     tools:context=".ui.ProfileActivity">
 
@@ -25,8 +26,7 @@
                 android:contentDescription="@string/profile_photo"
                 tools:src="@drawable/profile_img" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoIv"
                 android:layout_width="@dimen/profile_photo_h"
                 android:layout_height="@dimen/profile_photo_h"
@@ -95,17 +95,23 @@
                 android:textSize="@dimen/profile_l_name_textSize"
                 android:textStyle="normal" />
 
-            <EditText
-                android:id="@+id/displayNameEd"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/displayNameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:letterSpacing="@dimen/profile_name_letterSpacing"
-                android:lineSpacingExtra="@dimen/profile_name_lineSpacingExtra"
-                android:textColor="@color/colorProfileText"
-                android:textSize="@dimen/profile_name_textSize"
-                android:inputType="textPersonName"
-                tools:text="Михаил Дерябин"
-                tools:ignore="LabelFor" />
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/displayNameEd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:letterSpacing="@dimen/profile_name_letterSpacing"
+                    android:lineSpacingExtra="@dimen/profile_name_lineSpacingExtra"
+                    android:textColor="@color/colorProfileText"
+                    android:textSize="@dimen/profile_name_textSize"
+                    tools:ignore="LabelFor"
+                    tools:text="Михаил Дерябин" />
+            </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,13 +128,13 @@
                 android:id="@+id/phoneNumberEd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="phone"
                 android:letterSpacing="@dimen/profile_phone_letterSpacing"
                 android:lineSpacingExtra="@dimen/profile_phone_lineSpacingExtra"
                 android:textColor="@color/colorProfileText"
                 android:textSize="@dimen/profile_phone_textSize"
-                android:inputType="phone"
-                tools:text="+7 917 678 9000"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor"
+                tools:text="+7 917 678 9000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,17 +147,23 @@
                 android:textSize="@dimen/profile_l_email_textSize"
                 android:textStyle="normal" />
 
-            <EditText
-                android:id="@+id/emailEd"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/emailLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:letterSpacing="@dimen/profile_email_letterSpacing"
-                android:lineSpacingExtra="@dimen/profile_email_lineSpacingExtra"
-                android:textColor="@color/colorProfileText"
-                android:textSize="@dimen/profile_email_textSize"
-                tools:ignore="LabelFor"
-                tools:text="derybin@gmail.com" />
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/emailEd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:letterSpacing="@dimen/profile_email_letterSpacing"
+                    android:lineSpacingExtra="@dimen/profile_email_lineSpacingExtra"
+                    android:textColor="@color/colorProfileText"
+                    android:textSize="@dimen/profile_email_textSize"
+                    tools:ignore="LabelFor"
+                    tools:text="derybin@gmail.com" />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/saveBtn"

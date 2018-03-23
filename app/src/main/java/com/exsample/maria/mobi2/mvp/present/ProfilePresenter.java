@@ -74,6 +74,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     @Override
     public void onDataLoad(HashMap value) {
         getViewState().fillFields(value.get("email").toString(), value.get("name").toString(), value.get("phone").toString());
+        getViewState().configEditFields();
     }
 
     @Override

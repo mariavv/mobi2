@@ -33,4 +33,6 @@ public interface ProfileView extends MvpView {
     void startCameraActivity(Intent intent, int photoCameraRequest);
 
     void onPhotoChanged();
+
+    void configEditFields();
 }

@@ -15,8 +15,7 @@ public class User{
     private String email;
     private String name;
     private String phone;
-    public int starCount = 0;
-    public Map<String, Boolean> stars = new HashMap<>();
+    //public Map<String, Boolean> userMap = new HashMap<>();
 
     public User() {
     }
@@ -27,17 +26,15 @@ public class User{
         this.phone = phone;
     }
 
-    @Exclude
+    /*@Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", email);
         result.put("name", name);
         result.put("phone", phone);
-        result.put("starCount", starCount);
-        result.put("stars", stars);
 
         return result;
-    }
+    }*/
 
     public void setName(String name) {
         this.name = name;
