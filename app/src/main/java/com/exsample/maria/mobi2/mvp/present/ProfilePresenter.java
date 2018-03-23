@@ -19,6 +19,8 @@ import com.exsample.maria.mobi2.manager.ImageProvider;
 import com.exsample.maria.mobi2.mvp.model.User;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
 
+import java.util.HashMap;
+
 /**
  * Created by maria on 01.03.2018
  */
@@ -34,30 +36,29 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         if (!AuthManager.userExists()) {
             getViewState().close();
         }
-        //AuthManager manager = new AuthManager(this);
-        //getViewState().fillFields(manager.getEmail(), manager.getDisplayName(), manager.getPhoneNumber());
+
+        //getViewState().fillFields("", "", AuthManager.getPhoneNumber());
 
         (new DbManager(this))
-                .read(context.getString(R.string.db_users_table), AuthManager.getUserId(), User.class);
+                .read(context.getString(R.string.db_users_table), AuthManager.getUserId());
     }
 
     public void onSaveBtnPressed(Context context, String email, String displayName, String phoneNumber) {
         if ((Patterns.EMAIL_ADDRESS.matcher(email).matches()) && (displayName.length() > 0)) {
-            (new DbManager(this))
-                    .write(context.getString(R.string.db_users_table), AuthManager.getUserId(), (new User(email, displayName, phoneNumber)));
+            User user = new User(email, displayName, phoneNumber);
 
-            //TODO
-            //AuthManager manager = new AuthManager(this);
-            //manager.updateEmail(email);
-            getViewState().say(R.string.profile_saved);
+            (new DbManager(this))
+                    .write(context.getString(R.string.db_users_table), AuthManager.getUserId(), user);
+
+            AuthManager.updateUser(user.getEmail(), "");
         } else {
             getViewState().say(R.string.profile_not_valid);
         }
     }
 
     @Override
-    public void onError(int error) {
-        getViewState().say(error);
+    public void onReadNullError() {
+        getViewState().say(R.string.user_null);
     }
 
     @Override
@@ -71,8 +72,13 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     }
 
     @Override
-    public void onDataLoad(User user) {
-        getViewState().fillFields(user.getEmail(), user.getName(), user.getPhone());
+    public void onDataLoad(HashMap value) {
+        getViewState().fillFields(value.get("email").toString(), value.get("name").toString(), value.get("phone").toString());
+    }
+
+    @Override
+    public void writeSuccessful() {
+        getViewState().say(R.string.profile_saved);
     }
 
     public void onChangePhotoBtnPressed(View v) {

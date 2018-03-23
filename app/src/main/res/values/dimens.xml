@@ -16,7 +16,7 @@
     <dimen name="auth_scrollBar_size">4dp</dimen>
     <dimen name="auth_scroll_top">200dp</dimen>
 
-    <dimen name="profile_photo_h">100dp</dimen>
+    <dimen name="profile_photo_h">88dp</dimen>
     <dimen name="profile_head_textSize">24sp</dimen>
     <dimen name="profile_headText_lineSpacingExtra">0sp</dimen>
     <dimen name="profile_photoBtn_textSize">12sp</dimen>
@@ -40,7 +40,8 @@
     <dimen name="profile_l_email_lineSpacingExtra">4sp</dimen>
     <dimen name="profile_pers_layout_margin_horizontal">46dp</dimen>
     <dimen name="profile_pers_marginTop">32dp</dimen>
-    <dimen name="profile_riv_border_width">2dip</dimen>
+    <dimen name="profile_photo_blur_h">180dp</dimen>
+    <dimen name="profile_photo_layout_marginTop">104dp</dimen>
     <item name="profile_headText_letterSpacing" type="dimen" format="float">0.01</item>
     <item name="profile_email_letterSpacing" type="dimen" format="float">0.02</item>
     <item name="profile_name_letterSpacing" type="dimen" format="float">0.02</item>

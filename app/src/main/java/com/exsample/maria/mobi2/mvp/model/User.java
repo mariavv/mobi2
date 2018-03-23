@@ -31,8 +31,8 @@ public class User{
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", email);
-        result.put("author", name);
-        result.put("title", phone);
+        result.put("name", name);
+        result.put("phone", phone);
         result.put("starCount", starCount);
         result.put("stars", stars);
 

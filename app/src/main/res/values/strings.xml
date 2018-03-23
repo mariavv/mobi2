@@ -1,15 +1,10 @@
 <resources>
-    <string name="status_bar_height">status_bar_height</string>
-    <string name="dimen">dimen</string>
-    <string name="android">android</string>
-
     <string name="app_name">Карты</string>
     <string name="hello_world">Hello World!</string>
     <string name="signed_out">You sign out</string>
     <string name="hello_user">Hello, %s</string>
     <string name="sign_out">Sign Out</string>
     <string name="sign_in">Sign In</string>
-    <string name="db_users_table">users</string>
     <string name="profileBtn_text">Профиль</string>
 
     <string name="auth_sova">sova</string>
@@ -33,6 +28,8 @@
     <string name="profile_l_name">Имя</string>
     <string name="profile_l_phone">Телефон</string>
     <string name="profile_l_email">Email</string>
+
     <string name="user_null">user null</string>
+    <string name="db_users_table">users</string>
 
 </resources>

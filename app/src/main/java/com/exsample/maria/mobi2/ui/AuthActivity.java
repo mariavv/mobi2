@@ -135,8 +135,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
         // Высота строки состояния
         int stateBarHeight = 0;
-        int resourceId = getResources().getIdentifier(
-                getString(R.string.status_bar_height), getString(R.string.dimen), getString(R.string.android));
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             stateBarHeight = getResources().getDimensionPixelSize(resourceId);
         }

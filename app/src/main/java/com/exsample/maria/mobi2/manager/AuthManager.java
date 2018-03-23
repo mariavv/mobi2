@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +32,7 @@ public class AuthManager {
     }
 
     public interface SignOutListener  extends AuthErrorListener{
-        void signOutSuccessful();;
+        void signOutSuccessful();
     }
 
     public AuthManager(Listener listener) {
@@ -119,28 +121,41 @@ public class AuthManager {
                 });
     }
 
-    public String getEmail() {
+    public static String getEmail() {
         if (userExists()) {
             return getCurrentUser().getEmail();
         }
         return null;
     }
 
-    public String getDisplayName() {
+    public static String getDisplayName() {
         if (userExists()) {
             return getCurrentUser().getDisplayName();
         }
         return null;
     }
 
-    public String getPhoneNumber() {
+    public static String getPhoneNumber() {
         if (userExists()) {
             return getCurrentUser().getPhoneNumber();
         }
         return null;
     }
 
-    public void updateEmail(String email) {
-        getCurrentUser().updateEmail(email);
+    public static void updateUser(String email, String password) {
+        getCurrentUser().updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        });
+        if (password != null && password.length() > 3){
+            getCurrentUser().updatePassword(password).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        }
     }
 }

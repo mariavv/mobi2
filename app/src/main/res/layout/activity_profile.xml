@@ -13,33 +13,31 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
             <ImageView
                 android:id="@+id/blurPhotoIv"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/profile_photo_h"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_photo_blur_h"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/profile_photo"
-                tools:src="@drawable/profile_img_2" />
+                tools:src="@drawable/profile_img" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoIv"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/profile_photo_h"
                 android:layout_height="@dimen/profile_photo_h"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="@dimen/profile_photo_layout_marginTop"
                 android:contentDescription="@string/profile_photo"
-                tools:src="@drawable/profile_img_2"
                 android:scaleType="fitCenter"
                 app:riv_corner_radius="@dimen/profile_photo_h"
-                app:riv_border_width="@dimen/profile_riv_border_width"
-                app:riv_border_color="@color/colorProfileRivBorder"
                 app:riv_mutate_background="true"
-                app:riv_tile_mode="repeat" />
+                app:riv_tile_mode="repeat"
+                tools:src="@drawable/profile_img_2" />
 
         </FrameLayout>
 
@@ -105,7 +103,9 @@
                 android:lineSpacingExtra="@dimen/profile_name_lineSpacingExtra"
                 android:textColor="@color/colorProfileText"
                 android:textSize="@dimen/profile_name_textSize"
-                tools:text="Михаил Дерябин" />
+                android:inputType="textPersonName"
+                tools:text="Михаил Дерябин"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,7 +126,9 @@
                 android:lineSpacingExtra="@dimen/profile_phone_lineSpacingExtra"
                 android:textColor="@color/colorProfileText"
                 android:textSize="@dimen/profile_phone_textSize"
-                tools:text="+7 917 678 9000" />
+                android:inputType="phone"
+                tools:text="+7 917 678 9000"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:layout_width="wrap_content"
