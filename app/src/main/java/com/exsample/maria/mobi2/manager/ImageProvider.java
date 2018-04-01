@@ -3,7 +3,6 @@ package com.exsample.maria.mobi2.manager;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,12 +31,10 @@ public class ImageProvider {
         this.listener = listener;
     }
 
-    public void getBitmap(Context context, Intent data) {
-        Uri imageUri = data.getData();
-
+    public void getBitmap(Context context, Uri uri) {
         String img_path = "";
         try {
-            img_path = getFilePath(context, imageUri);
+            img_path = getFilePath(context, uri);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -49,9 +46,8 @@ public class ImageProvider {
         }
     }
 
-    //TODO everything
     @SuppressLint("NewApi")
-    public /*static*/ String getFilePath(Context context, Uri uri) throws URISyntaxException {
+    private static String getFilePath(Context context, Uri uri) throws URISyntaxException {
         String selection = null;
         String[] selectionArgs = null;
         // Uri is different in versions after KITKAT (Android 4.4), we need to

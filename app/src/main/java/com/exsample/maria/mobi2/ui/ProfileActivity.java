@@ -1,15 +1,17 @@
 package com.exsample.maria.mobi2.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.FileProvider;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +29,6 @@ import com.exsample.maria.mobi2.mvp.present.ProfilePresenter;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
 import com.exsample.maria.mobi2.tools.BlurBuilder;
 
-import java.io.File;
-
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
 import ru.tinkoff.decoro.slots.Slot;
@@ -37,6 +37,8 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 
 public class ProfileActivity extends MvpAppCompatActivity implements ProfileView, View.OnFocusChangeListener {
+
+    private static final int PERMISSIONS_REQUEST_CAMERA = 1;
 
     private ImageView photoIv;
     private TextInputLayout emailLayout;
@@ -66,7 +68,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
     }
 
     private void addPhoneEdMask() {
-        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("+_ (___) ___ ____");
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots(getString(R.string.profile_phone_mask));
         FormatWatcher formatWatcher = new MaskFormatWatcher(MaskImpl.createTerminated(slots));
         formatWatcher.installOn(phoneNumberEd);
     }
@@ -99,12 +101,8 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onSaveBtnPressed(
-                        ProfileActivity.this,
-                        emailEd.getText().toString(),
-                        displayNameEd.getText().toString(),
-                        phoneNumberEd.getText().toString()
-                );
+                presenter.onSaveBtnPressed(ProfileActivity.this,
+                        getString(emailEd), getString(displayNameEd), getString(phoneNumberEd));
             }
         });
     }
@@ -166,14 +164,15 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void getFromGalary(final int reguestCode) {
-        File imagePath = new File(Environment.getExternalStorageDirectory(), "image");
+        /*File imagePath = new File(Environment.getExternalStorageDirectory(), "image");
         File newFile = new File(imagePath, "colorful_houses.jpg");
         Uri uri = FileProvider.getUriForFile(this, "com.mydomain.fileprovider", newFile);
 
-        setImage(uri);
+        setImage(uri);*/
 
-        //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType("image/*");
-        //startActivityForResult(intent, reguestCode);
+
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType("image/*");
+        startActivityForResult(intent, reguestCode);
     }
 
     public void onPhotoChanged() {
@@ -198,8 +197,25 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void getFromCamera(int photoCameraRequest) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        presenter.onIntentGetFromCameraCreated(intent.resolveActivity(getPackageManager()), intent);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                say(R.string.profile_camera_pernission_needs);
+            } else {
+                requestPermission();
+            }
+        } else {
+            requestPermission();
+        }
+
+        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //presenter.onIntentGetFromCameraCreated(intent.resolveActivity(getPackageManager()), intent);
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA},
+                PERMISSIONS_REQUEST_CAMERA);
     }
 
     @Override
@@ -215,18 +231,23 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (v == displayNameEd && displayNameEd.getText().toString().isEmpty()) {
+        if (v == displayNameEd && hasFocus) Toast.makeText(this, "name has", Toast.LENGTH_SHORT).show();
+        if (v == displayNameEd && presenter.isDisplayNameEmpty(getString(displayNameEd))) {
             displayNameLayout.setErrorEnabled(true);
             displayNameLayout.setError(getResources().getString(R.string.profile_user_name_error));
             return;
         } else {
             displayNameLayout.setErrorEnabled(false);
         }
-        if (v == emailEd && emailEd.getText().toString().isEmpty()) {
+        if (v == emailEd && presenter.isEmailValid(emailEd.getText().toString())) {
             emailLayout.setErrorEnabled(true);
-            emailLayout.setError(getResources().getString(R.string.profile_user_name_error));
+            emailLayout.setError(getResources().getString(R.string.profile_email_error));
         } else {
             emailLayout.setErrorEnabled(false);
         }
+    }
+
+    private String getString(TextView textView) {
+        return textView.getText().toString();
     }
 }

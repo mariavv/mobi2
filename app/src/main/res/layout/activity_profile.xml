@@ -28,13 +28,13 @@
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/photoIv"
-                android:layout_width="@dimen/profile_photo_h"
-                android:layout_height="@dimen/profile_photo_h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/profile_photo_layout_marginTop"
                 android:contentDescription="@string/profile_photo"
                 android:scaleType="fitCenter"
-                app:riv_corner_radius="@dimen/profile_photo_h"
+
                 app:riv_mutate_background="true"
                 app:riv_tile_mode="repeat"
                 tools:src="@drawable/profile_img_2" />

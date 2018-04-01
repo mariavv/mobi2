@@ -44,7 +44,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
     }
 
     public void onSaveBtnPressed(Context context, String email, String displayName, String phoneNumber) {
-        if ((Patterns.EMAIL_ADDRESS.matcher(email).matches()) && (displayName.length() > 0)) {
+        if ((isEmailValid(email)) && (!isDisplayNameEmpty(displayName))) {
             User user = new User(email, displayName, phoneNumber);
 
             (new DbManager(this))
@@ -56,9 +56,19 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         }
     }
 
+    public boolean isEmailValid(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public boolean isDisplayNameEmpty(String displayName) {
+        return displayName.isEmpty();
+    }
+
     @Override
     public void onReadNullError() {
-        getViewState().say(R.string.user_null);
+        //в бд нет записи о пользователе
+
+        //getViewState().say(R.string.user_null);
     }
 
     @Override
@@ -96,9 +106,10 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
         }
 
         if (requestCode == GALARY_REQUEST) {
-            (new ImageProvider(this)).getBitmap(context, data);
+            (new ImageProvider(this)).getBitmap(context, data.getData());
             //getViewState().setImage(data.getData());
-            getViewState().onPhotoChanged();
+
+            //getViewState().onPhotoChanged();
         } else if (requestCode == CAMERA_REQUEST) {
             //TODO
             getViewState().setImage(data.getData());

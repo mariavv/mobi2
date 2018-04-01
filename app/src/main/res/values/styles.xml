@@ -10,6 +10,10 @@
     <style name="AuthTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorAuth</item>
         <item name="windowActionBar">@color/colorAuth</item>
+
+        <!--for fit scroll
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>-->
     </style>
 
     <style name="ProfileTheme" parent="Theme.AppCompat.Light.DarkActionBar">

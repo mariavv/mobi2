@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
+
+import android.support.v4.view.OnApplyWindowInsetsListener;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -47,10 +51,11 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         configViews();
-        fillScroll(); // позволяет растянуть scrollView на высоту экрана
+        fillView();
+        //fillScroll(); // позволяет растянуть scrollView на высоту экрана
 
-        emailEd.setText(getString(R.string.email));
-        passEd.setText(getString(R.string.pass));
+        //emailEd.setText(getString(R.string.email));
+        //passEd.setText(getString(R.string.pass));
     }
 
     private void configViews() {
@@ -118,9 +123,6 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
     // Растягивает view на весь экран
     private void fillScroll() {
-        ImageView scrolling_layout = findViewById(R.id.scrolling_layout);
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) scrolling_layout.getLayoutParams();
-
         // Высота экрана
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -140,9 +142,36 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
             stateBarHeight = getResources().getDimensionPixelSize(resourceId);
         }
 
+        ImageView glassyLayout = findViewById(R.id.glassyLayout);
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) glassyLayout.getLayoutParams();
         params.height = size.y - actionBarHeight - stateBarHeight;
+        glassyLayout.requestLayout();
+    }
 
-        scrolling_layout.requestLayout();
+    private void fillView() {
+        View container = findViewById(R.id.container);
+
+        ViewCompat.setOnApplyWindowInsetsListener(container, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                int statusBar = insets.getSystemWindowInsetTop();
+                int navigationBar = insets.getStableInsetBottom();
+                fill(statusBar, navigationBar);
+                return null;
+            }
+
+            private void fill(int stateBarHeight, int actionBarHeight) {
+                // Высота экрана
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+
+                ImageView glassyLayout = findViewById(R.id.glassyLayout);
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) glassyLayout.getLayoutParams();
+                params.height = size.y - actionBarHeight - stateBarHeight;
+                glassyLayout.requestLayout();
+            }
+        });
     }
 
     @Override
@@ -171,5 +200,17 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
     public void close(int result) {
         setResult(result, new Intent());
         finish();
+    }
+
+    private class Wic extends WindowInsetsCompat {
+
+        /**
+         * Constructs a new WindowInsetsCompat, copying all values from a source WindowInsetsCompat.
+         *
+         * @param src source from which values are copied
+         */
+        public Wic(WindowInsetsCompat src) {
+            super(src);
+        }
     }
 }

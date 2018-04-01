@@ -16,7 +16,7 @@
     <dimen name="auth_scrollBar_size">4dp</dimen>
     <dimen name="auth_scroll_top">200dp</dimen>
 
-    <dimen name="profile_photo_h">88dp</dimen>
+    <dimen name="profile_photo_hw">88dp</dimen>
     <dimen name="profile_head_textSize">24sp</dimen>
     <dimen name="profile_headText_lineSpacingExtra">0sp</dimen>
     <dimen name="profile_photoBtn_textSize">12sp</dimen>

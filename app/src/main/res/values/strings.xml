@@ -32,5 +32,8 @@
     <string name="user_null">user null</string>
     <string name="db_users_table">users</string>
     <string name="profile_user_name_error">Поле не может быть пустым</string>
+    <string name="profile_phone_mask">+7 (___) ___ ____</string>
+    <string name="profile_email_error">Неверный email</string>
+    <string name="profile_camera_pernission_needs">Необходимо разрешение для камеры</string>
 
 </resources>
