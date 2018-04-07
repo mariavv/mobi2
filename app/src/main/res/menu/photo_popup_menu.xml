@@ -4,13 +4,9 @@
     <group android:id="@+id/menugroup">
         <item
             android:id="@+id/photoFromGalary"
-            android:title="@string/profile_menu_photo_fromGalary"
-            android:checkable="true"
-            android:checked="true" />
+            android:title="@string/profile_menu_photo_fromGalary" />
         <item
             android:id="@+id/photoFromCamera"
-            android:title="@string/profile_menu_photo_fromCamera"
-            android:checkable="true"
-            android:checked="true" />
+            android:title="@string/profile_menu_photo_fromCamera" />
     </group>
 </menu>

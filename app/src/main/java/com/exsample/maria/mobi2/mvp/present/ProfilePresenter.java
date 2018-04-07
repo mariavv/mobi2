@@ -39,6 +39,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
         //getViewState().fillFields("", "", AuthManager.getPhoneNumber());
 
+        // todo надо загрузить из FirebaseAuth
         (new DbManager(this))
                 .read(context.getString(R.string.db_users_table), AuthManager.getUserId());
     }

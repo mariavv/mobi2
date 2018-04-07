@@ -8,8 +8,8 @@
     android:focusable="true"
     android:theme="@style/AuthTheme"
     tools:context=".ui.AuthActivity"
-    android:fitsSystemWindows="true"
-    android:id="@+id/container" >
+    android:id="@+id/container"
+    android:fitsSystemWindows="true" >
 
     <ImageView
         android:id="@+id/imageView"
@@ -26,7 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:fitsSystemWindows="true"
         android:scrollbarSize="@dimen/auth_scrollBar_size"
         android:scrollbarTrackVertical="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -37,7 +36,7 @@
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <ImageView
+            <com.exsample.maria.mobi2.ui.custom.StretchView
                 android:id="@+id/glassyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

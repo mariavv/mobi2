@@ -25,6 +25,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.AuthPresenter;
 import com.exsample.maria.mobi2.mvp.view.AuthView;
+import com.exsample.maria.mobi2.ui.custom.StretchView;
 
 public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
@@ -32,6 +33,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
     private EditText passEd;
     private Button regBtn;
     private Button loginBtn;
+    private StretchView stretchView;
 
     @InjectPresenter
     AuthPresenter presenter;
@@ -51,11 +53,10 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         configViews();
-        fillView();
-        //fillScroll(); // позволяет растянуть scrollView на высоту экрана
 
-        //emailEd.setText(getString(R.string.email));
-        //passEd.setText(getString(R.string.pass));
+        //stretchView.requestApplyInsets();
+        //fillView();
+        fillScroll(); // позволяет растянуть scrollView на высоту экрана
     }
 
     private void configViews() {
@@ -63,6 +64,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
         passEd = findViewById(R.id.enterPass);
         regBtn = findViewById(R.id.regBtn);
         loginBtn = findViewById(R.id.loginBtn);
+        stretchView = findViewById(R.id.glassyLayout);
 
         emailEd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -150,6 +152,7 @@ public class AuthActivity extends MvpAppCompatActivity implements AuthView {
 
     private void fillView() {
         View container = findViewById(R.id.container);
+        container.requestApplyInsets();
 
         ViewCompat.setOnApplyWindowInsetsListener(container, new OnApplyWindowInsetsListener() {
             @Override

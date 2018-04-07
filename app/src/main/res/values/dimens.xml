@@ -41,7 +41,7 @@
     <dimen name="profile_pers_layout_margin_horizontal">46dp</dimen>
     <dimen name="profile_pers_marginTop">32dp</dimen>
     <dimen name="profile_photo_blur_h">180dp</dimen>
-    <dimen name="profile_photo_layout_marginTop">104dp</dimen>
+    <dimen name="profile_photo_layout_marginTop">104dp</dimen><!--временно-->
     <item name="profile_headText_letterSpacing" type="dimen" format="float">0.01</item>
     <item name="profile_email_letterSpacing" type="dimen" format="float">0.02</item>
     <item name="profile_name_letterSpacing" type="dimen" format="float">0.02</item>

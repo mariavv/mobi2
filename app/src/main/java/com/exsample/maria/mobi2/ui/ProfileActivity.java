@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,6 +27,8 @@ import com.exsample.maria.mobi2.R;
 import com.exsample.maria.mobi2.mvp.present.ProfilePresenter;
 import com.exsample.maria.mobi2.mvp.view.ProfileView;
 import com.exsample.maria.mobi2.tools.BlurBuilder;
+
+import java.io.IOException;
 
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
@@ -62,6 +63,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
         //        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
+        //TODO крутящийся бар
         presenter.onActivityCreate(this);
 
         initViews();
@@ -87,7 +89,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         Button changePhotoBtn = findViewById(R.id.changePhotoBtn);
         Button saveBtn = findViewById(R.id.saveBtn);
 
-        setBlurImage();
+        //setBlurImage();
 
         addPhoneEdMask();
 
@@ -107,12 +109,12 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         });
     }
 
-    private void setBlurImage() {
+    /*private void setBlurImage() {
         ImageView resultImage = findViewById(R.id.blurPhotoIv);
         Bitmap resultBmp = BlurBuilder.blur(
                 this, BitmapFactory.decodeResource(getResources(), R.drawable.img));
         resultImage.setImageBitmap(resultBmp);
-    }
+    }*/
 
     @Override
     public void fillFields(String email, String displayName, String phoneNumber) {
@@ -185,14 +187,27 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
         emailEd.setOnFocusChangeListener(this);
     }
 
+    private void setBlurImage(Bitmap img_path) {
+        ImageView resultImage = findViewById(R.id.blurPhotoIv);
+        Bitmap resultBmp = BlurBuilder.blur(this, img_path);
+        resultImage.setImageBitmap(resultBmp);
+    }
+
     @Override
     public void setImage(Bitmap img_path) {
         photoIv.setImageBitmap(img_path);
+        setBlurImage(img_path);
     }
 
     @Override
     public void setImage(Uri uri) {
         photoIv.setImageURI(uri);
+
+        try {
+            setBlurImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -208,8 +223,8 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
             requestPermission();
         }
 
-        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //presenter.onIntentGetFromCameraCreated(intent.resolveActivity(getPackageManager()), intent);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        presenter.onIntentGetFromCameraCreated(intent.resolveActivity(getPackageManager()), intent);
     }
 
     private void requestPermission() {
@@ -231,7 +246,7 @@ public class ProfileActivity extends MvpAppCompatActivity implements ProfileView
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if (v == displayNameEd && hasFocus) Toast.makeText(this, "name has", Toast.LENGTH_SHORT).show();
+        //if (v == displayNameEd && hasFocus) Toast.makeText(this, "name has", Toast.LENGTH_SHORT).show();
         if (v == displayNameEd && presenter.isDisplayNameEmpty(getString(displayNameEd))) {
             displayNameLayout.setErrorEnabled(true);
             displayNameLayout.setError(getResources().getString(R.string.profile_user_name_error));
